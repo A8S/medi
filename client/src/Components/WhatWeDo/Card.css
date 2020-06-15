@@ -1,0 +1,19 @@
+.card-shadow {
+   border: 5;
+}
+
+._card{
+	height:135px;
+}
+
+.card-img-top {
+    width: 40% !important;
+    height:90px !important;
+    margin: 20px 90px 20px 90px !important
+
+}
+
+.des{
+    size: 20px;
+}
+/*color: #24a06a*/

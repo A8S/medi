@@ -1,0 +1,60 @@
+
+  .diseases_title{
+    margin-top: 70px;
+  }
+  
+  .provide-card-row{
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .card{
+      border-radius: 16px !important;
+  }
+
+  .searchfield {
+    border: 1px solid #999;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  .no-suggestions {
+    color: #999;
+    padding: 0.5rem;
+  }
+  
+  .suggestions {
+    border: 1px solid #999;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    max-height: 143px;
+    overflow-y: auto;
+    padding-left: 0;
+    width: 100%;
+  }
+  
+  .suggestions li {
+    padding: 0.5rem;
+  }
+  
+  .suggestion-active,
+  .suggestions li:hover {
+    background-color: #cecece;
+    color: black;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  
+  .suggestions li:not(:last-of-type) {
+    border-bottom: 1px solid #999;
+  }
+
+  .img-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
