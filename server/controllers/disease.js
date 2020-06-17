@@ -1,69 +1,77 @@
-const Disease = require("../models/disease");
+const Disease = require('../models/disease');
+const SubDisease = require('../models/subdisease');
+
+exports.getDiseases = (req, res) => {
+	Disease.find({}, (err, foundDiseases) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(foundDiseases);
+		}
+	});
+};
 
 exports.getDisease = async (req, res) => {
-  const diseases = await Disease.find()
-    .countDocuments()
-    .then((count) => {
-      totalItems = count;
-      return Disease.find().sort({ date: -1 });
-    })
-    .then((diseases) => {
-      res.status(200).json(diseases);
-    })
-    .catch((err) => console.log(err));
+	Disease.findById(req.params.dId, (err, foundDisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(foundDisease);
+		}
+	});
 };
-exports.createDisease = (req, res, next) => {
-    console.log("hii");
-    // this function work only when form data is there
-    const { title, description } = req.body
-      let disease = new Disease({title, description}); // so post will be there with all the fields coming
-  
-      disease.save((err, result) => {
-        if (err) {
-          return res.status(400).json({
-            error: err,
-          });
-        }
-        res.json(result);
-      });
-   
-  };
-  
-  exports.updateDisease = (req, res, next) => {
-    let form = new formidable.IncomingForm();
-    form.keepExtensions = true;
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        return res.status(400).json({
-          error: "Some Error Occured",
-        });
-      }
-  
-      let disease = req.disease;
-      disease = _.extend(disease, fields);
-      disease.updated = Date.now();
-  
-      disease.save((err, result) => {
-        if (err) {
-          return res.status(400).json({
-            error: err,
-          });
-        }
-        res.json(post);
-      });
-    });
-  };
-  
-  exports.deletePost = (req, res) => {
-    let disease = req.disease;
-    disease.remove((err, disease) => {
-      if (err) {
-        return res.status(400).json({
-          error: err,
-        });
-      }
-      res.json({
-        message: "Disease deleted successfully",
-      });
-    });
-  };
+exports.createDisease = (req, res) => {
+	console.log(JSON.parse(Object.keys(req.body)[0]));
+	const { title } = JSON.parse(Object.keys(req.body)[0]);
+	let disease = new Disease({ title }); // so post will be there with all the fields coming
+
+	disease.save((err, result) => {
+		if (err) {
+			return res.status(400).json({
+				error: err
+			});
+		}
+		res.json(result);
+	});
+};
+
+exports.updateDisease = (req, res) => {
+	Disease.findByIdAndUpdate(
+		req.params.dId,
+		JSON.parse(Object.keys(req.body)[0]),
+		{ new: true },
+		(err, updatedDisease) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(updatedDisease);
+			}
+		}
+	);
+};
+
+exports.deleteDisease = (req, res) => {
+	Disease.findById(req.params.dId, (err, foundDisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			foundDisease.subdiseases.forEach((sub) => {
+				SubDisease.findByIdAndRemove(sub._id, (err) => {
+					console.log(err);
+				});
+			});
+
+			foundDisease.remove((err) => {
+				if (err) {
+					console.log(err);
+				} else {
+					const response = {
+						message: 'Disease successfully deleted',
+						id: req.params.dId
+					};
+					res.status(200).send(response);
+				}
+			});
+		}
+	});
+};

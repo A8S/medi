@@ -14,9 +14,9 @@ import Card from './Card';
 import Autocomplete from './Autocomplete';
 import Cancer from '../../Images/Diseases/1.png';
 import './style.css';
+import { getDiseases } from '../../Api/Disease';
 
 const data = [
-
 	{
 		name: 'Arthritis',
 		icon: Cancer,
@@ -25,8 +25,8 @@ const data = [
 			{ title: { id: 22, name: 'Fibromyalgia' } },
 			{ title: { id: 23, name: 'Gout' } },
 			{ title: { id: 24, name: 'Osteoarthritis (OA)' } },
-			{ title: { id: 25, name: 'Rheumatoid Arthritis (RA)' } },
-		],
+			{ title: { id: 25, name: 'Rheumatoid Arthritis (RA)' } }
+		]
 	},
 
 	{
@@ -35,8 +35,8 @@ const data = [
 		type: [
 			{ title: { id: 41, name: 'Hearing Loss ' } },
 			{ title: { id: 42, name: ' Glaucoma ' } },
-			{ title: { id: 43, name: 'Macular Degeneration' } },
-		],
+			{ title: { id: 43, name: 'Macular Degeneration' } }
+		]
 	},
 	{
 		name: 'Digestive and Intestinal',
@@ -44,8 +44,8 @@ const data = [
 		type: [
 			{ title: { id: 51, name: "Crohn's Disease" } },
 			{ title: { id: 52, name: 'Ulcerative Colitis' } },
-			{ title: { id: 53, name: 'IBS' } },
-		],
+			{ title: { id: 53, name: 'IBS' } }
+		]
 	},
 	{
 		name: 'Cancer',
@@ -55,26 +55,47 @@ const data = [
 			{ title: { id: 62, name: 'Lungs' } },
 			{ title: { id: 63, name: 'Prostate' } },
 			{ title: { id: 64, name: 'Skin' } },
-			{ title: { id: 65, name: 'Blood' } },
-		],
-	},
+			{ title: { id: 65, name: 'Blood' } }
+		]
+	}
 ];
 class Diseases extends React.Component {
 	constructor(props) {
 		super(props);
-		this.filteredData = this.filteredData.bind(this);
+		// this.filteredData = this.filteredData.bind(this);
 		this.state = {
-			disease: data,
-			filteredData: data,
+			disease: [],
+			filteredData: []
 		};
+	}
+
+	componentDidMount() {
+		getDiseases().then((diseases) => {
+			this.setState({
+				disease: diseases,
+				filteredData: diseases
+			});
+		});
+	}
+	componentDidUpdate() {
+		getDiseases().then((diseases) => {
+			this.setState({
+				disease: diseases,
+				filteredData: diseases
+			});
+		});
 	}
 
 	filteredData(filteredData) {
 		this.setState({ filteredData });
 	}
 
+	onAddDisease = () => {
+		this.props.history.push('/add_disease');
+	};
+
 	render() {
-		const html = this.state.filteredData.map((x, key) => <Card key={key} data={x} />);
+		const html = this.state.filteredData.map((x, key) => <Card key={key} data={x} history={this.props.history} />);
 		return (
 			<div className="container">
 				<div className="mt-2">
@@ -82,14 +103,14 @@ class Diseases extends React.Component {
 						<h2 className="my-5">Diseases</h2>
 					</div>
 					<div>
-						<Autocomplete
-							filteredData={this.filteredData}
-							suggestions={this.state.disease}
-						/>
+						<Autocomplete filteredData={this.filteredData} suggestions={this.state.disease} />
 					</div>
 					<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mt-5 mx-40">
 						<div className="provide-card-row">{html}</div>
 					</div>
+					<button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
+						Create Disease
+					</button>
 				</div>
 			</div>
 		);

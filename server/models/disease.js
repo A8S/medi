@@ -1,19 +1,17 @@
-const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
+const mongoose = require('mongoose');
 
 const diseaseSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  created: {
-    type: Date,
-    default: Date.now,
-  },
+	title: {
+		type: String,
+		required: true
+	},
+
+	subdiseases: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Subdisease'
+		}
+	]
 });
 
-module.exports = mongoose.model("Disease", diseaseSchema);
+module.exports = mongoose.model('Disease', diseaseSchema);

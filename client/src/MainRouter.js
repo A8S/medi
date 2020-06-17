@@ -27,6 +27,9 @@ import Settings from './Components/Settings';
 import Admin from './Components/Admin';
 import Notfound from './Components/Notfound';
 import Feedback from './Components/Feedback';
+import AddDisease from './Components/Diseases/AddDisease';
+import AddSubdisease from './Components/Diseases/AddSubdisease';
+import UpdateDisease from './Components/Diseases/UpdateDisease';
 
 const MainRouter = () => (
 	<div>
@@ -37,6 +40,9 @@ const MainRouter = () => (
 			<Route exact path="/pathy" component={Pathy} />
 			<Route exact path="/diseases" component={Diseases} />
 			<Route exact path="/diseases/:id" component={DiseaseDetail} />
+			<Route exact path="/add_disease" component={AddDisease} />
+			<Route exact path="/add_subdisease/:dId" component={AddSubdisease} />
+			<Route exact path="/update_disease/:dId" component={UpdateDisease} />
 			{/* <Route exact path="/disease/:diseasename" component={DiseaseDetail} /> */}
 			<Route exact path="/aboutus" component={AboutUs} />
 			<Route exact path="/contactus" component={ContactUs} />

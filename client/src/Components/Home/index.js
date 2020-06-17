@@ -6,7 +6,6 @@ import logo from '../../Images/logo.svg';
 import Testimonial from '../ContactUs/Testimonial';
 import Testimonialdata from '../../Data/Testimonial_data';
 
-
 class Home extends Component {
 	render() {
 		return (
@@ -15,11 +14,7 @@ class Home extends Component {
 					<div className="jumbotron bg-secondary text-white text-center jbtron">
 						<h2 className="display-4">Medical Counselling</h2>
 						<p className="lead">Experiance of common man help each other</p>
-						<img
-												src={logo}
-												className="img-responsive img-css"
-												alt="logo"
-											/>
+						<img src={logo} className="img-responsive img-css" alt="logo" />
 						<div className="row">
 							<div className="col-md-6 ">
 								<Link to="/Signup">
@@ -35,12 +30,12 @@ class Home extends Component {
 									</button>
 								</Link>
 							</div>
-					</div>		
+						</div>
 					</div>
 				</div>
-				
+
 				<CardLayout />
-				
+
 				<div>
 					<h4 className="text-center mb-4 mt-5">What people say about our platform</h4>
 					<Testimonial slides={Testimonialdata} />
@@ -79,7 +74,7 @@ class Home extends Component {
 							</div>
 						</div>
 					</div>
-					</div>
+				</div>
 				<div className="container">
 					<Link to="/Signup">
 						<button type="button" className="btn btn-primary buttonJoin">
@@ -87,7 +82,6 @@ class Home extends Component {
 						</button>
 					</Link>
 				</div>
-			
 			</div>
 		);
 	}
