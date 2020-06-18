@@ -14,17 +14,9 @@ class AddDisease extends React.Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = new FormData(e.currentTarget);
-		var object = {};
-		console.log(data);
-		data.forEach(function(value, key) {
-			console.log(value + ' ' + key);
-			object[key] = value;
-		});
-		console.log(object);
-		const res = await createDisease(object);
+		const res = await createDisease(this.state);
 		console.log(res);
-		if (res.status == 200) {
+		if (res.status === 200) {
 			this.props.history.push('/diseases');
 		}
 	};

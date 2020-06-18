@@ -7,9 +7,6 @@ export const createSubdisease = async (subdisease, dId) => {
 	return axios({
 		method: 'post',
 		url: `${serverUrl}/api/subdisease/${dId}`,
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
 		data: subdisease
 	})
 		.then(function(response) {
@@ -35,7 +32,7 @@ export const createSubdisease = async (subdisease, dId) => {
 
 // Read
 export const getSubdisease = (sdId) => {
-	return fetch(`${serverUrl}/api/subdiseases/${sdId}`, {
+	return fetch(`${serverUrl}/api/subdisease/${sdId}`, {
 		method: 'GET'
 	})
 		.then((response) => {
@@ -56,16 +53,18 @@ export const deleteSubdisease = (sdId) => {
 };
 
 // Update
-export const update = (sdId, subdisease) => {
-	return fetch(`${serverUrl}/api/subdisease/${sdId}`, {
-		method: 'PUT',
-		headers: {
-			Accept: 'x-www-form-urlencoded'
-		},
-		body: subdisease
+export const updateSubdisease = (sdId, subdisease) => {
+	console.log(sdId);
+	console.log(subdisease);
+	return axios({
+		method: 'put',
+		url: `${serverUrl}/api/subdisease/${sdId}`,
+		data: subdisease
 	})
-		.then((response) => {
-			return response.json();
+		.then(function(response) {
+			return response;
 		})
-		.catch((err) => console.log(err));
+		.catch(function(error) {
+			return error;
+		});
 };

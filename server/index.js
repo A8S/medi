@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const expressValidator = require('express-validator');
 const fs = require('fs');
@@ -27,6 +27,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const diseaseRoutes = require('./routes/disease');
 const subdiseaseRoutes = require('./routes/subdisease');
+const feedbackRoutes = require('./routes/feedback');
 // apiDocs
 app.get('/api', (req, res) => {
 	fs.readFile('docs/apiDocs.json', (err, data) => {
@@ -46,7 +47,7 @@ app.get('/hello', (req, res) => {
 
 // middleware
 app.use(morgan('dev')); // Middleware: using morgan to log requests to the console
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(cookieParser()); // cookieParser(secret, options)
 app.use(expressValidator());
@@ -57,6 +58,7 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', diseaseRoutes);
 app.use('/api', subdiseaseRoutes);
+app.use('/api', feedbackRoutes);
 app.use(function(err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
 		// if encountered UnauthorizedError, provide this validation

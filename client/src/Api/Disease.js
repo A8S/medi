@@ -16,9 +16,6 @@ export const createDisease = async (disease) => {
 	return axios({
 		method: 'post',
 		url: `${serverUrl}/api/disease`,
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
 		data: disease
 	})
 		.then(function(response) {
@@ -58,9 +55,6 @@ export const updateDisease = (dId, disease) => {
 	return axios({
 		method: 'put',
 		url: `${serverUrl}/api/disease/${dId}`,
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
 		data: disease
 	})
 		.then(function(response) {

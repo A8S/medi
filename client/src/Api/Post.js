@@ -1,16 +1,13 @@
 export const create = async (userId, token, post) => {
 	try {
-		const response = await fetch(
-			`https://medical-umbrella.herokuapp.com/api/post/new/${userId}`,
-			{
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-				body: post,
+		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/post/new/${userId}`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				Authorization: `Bearer ${token}`
 			},
-		);
+			body: post
+		});
 		return response.json();
 	} catch (err) {
 		return console.log(err);
@@ -29,39 +26,36 @@ export const create = async (userId, token, post) => {
 // };
 
 // with pagination
-export const list = page => {
+export const list = (page) => {
 	return fetch(`https://medical-umbrella.herokuapp.com/api/posts/?page=${page}`, {
-		method: 'GET',
+		method: 'GET'
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
-export const singlePost = postId => {
+export const singlePost = (postId) => {
 	return fetch(`https://medical-umbrella.herokuapp.com/api/post/${postId}`, {
-		method: 'GET',
+		method: 'GET'
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
 export const listByUser = async (userId, token) => {
 	try {
-		const response = await fetch(
-			`https://medical-umbrella.herokuapp.com/api/posts/by/${userId}`,
-			{
-				method: 'GET',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-			},
-		);
+		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/posts/by/${userId}`, {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`
+			}
+		});
 		return response.json();
 	} catch (err) {
 		return console.log(err);
@@ -74,13 +68,13 @@ export const remove = (postId, token) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
-		},
+			Authorization: `Bearer ${token}`
+		}
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
 export const update = (postId, token, post) => {
@@ -89,14 +83,14 @@ export const update = (postId, token, post) => {
 		method: 'PUT',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${token}`
 		},
-		body: post,
+		body: post
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
 export const like = (userId, token, postId) => {
@@ -105,14 +99,14 @@ export const like = (userId, token, postId) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${token}`
 		},
-		body: JSON.stringify({ userId, postId }),
+		body: JSON.stringify({ userId, postId })
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
 export const unlike = (userId, token, postId) => {
@@ -121,12 +115,12 @@ export const unlike = (userId, token, postId) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${token}`
 		},
-		body: JSON.stringify({ userId, postId }),
+		body: JSON.stringify({ userId, postId })
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };

@@ -2,137 +2,74 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import ReactTags from 'react-tag-autocomplete';
 
 class Autocomplete extends Component {
-	static propTypes = {
-		suggestions: PropTypes.instanceOf(Array),
-	};
-
-	static defaultProps = {
-		suggestions: [],
-	};
-
 	constructor(props) {
 		super(props);
-
+		this.myRef = React.createRef();
 		this.state = {
-			// The active selection's index
-			activeSuggestion: 0,
-			// The suggestions that match the user's input
-			filteredSuggestions: [],
-			// Whether or not the suggestion list is shown
-			showSuggestions: false,
-			// What the user has entered
-			userInput: '',
+			suggestions: [],
+			tags: []
 		};
 	}
 
-	onChange = e => {
-		const { suggestions } = this.props;
-		const userInput = e.currentTarget.value;
+	componentDidMount() {}
 
-		// Filter our suggestions that don't contain the user's input
-		const filteredSuggestions = suggestions.filter(
-			suggestion => suggestion.name.toLowerCase().indexOf(userInput.toLowerCase()) > -1,
-		);
-
-		this.setState({
-			activeSuggestion: 0,
-			filteredSuggestions,
-			showSuggestions: true,
-			userInput: e.currentTarget.value,
-		});
-		console.log(filteredSuggestions);
-		this.props.filteredData(filteredSuggestions);
-	};
-
-	onClick = e => {
-		this.setState({
-			activeSuggestion: 0,
-			filteredSuggestions: [],
-			showSuggestions: false,
-			userInput: e.currentTarget.innerText,
-		});
-	};
-
-	onKeyDown = e => {
-		const { activeSuggestion, filteredSuggestions } = this.state;
-
-		// User pressed the enter key
-		if (e.keyCode === 13) {
+	componentDidUpdate() {
+		if (this.state.suggestions.length !== this.props.suggestions.length) {
+			let sug = [];
+			this.props.suggestions.forEach((suggestion) => {
+				sug.push({ id: suggestion._id, name: suggestion.title });
+			});
 			this.setState({
-				activeSuggestion: 0,
-				showSuggestions: false,
-				userInput: filteredSuggestions[activeSuggestion],
+				suggestions: sug
 			});
 		}
-		// User pressed the up arrow
-		else if (e.keyCode === 38) {
-			if (activeSuggestion === 0) {
-				return;
-			}
+	}
 
-			this.setState({ activeSuggestion: activeSuggestion - 1 });
-		}
-		// User pressed the down arrow
-		else if (e.keyCode === 40) {
-			if (activeSuggestion - 1 === filteredSuggestions.length) {
-				return;
-			}
+	handleDelete(i) {
+		const tags = this.state.tags.slice(0);
+		tags.splice(i, 1);
+		this.setState({ tags });
+	}
 
-			this.setState({ activeSuggestion: activeSuggestion + 1 });
+	handleAddition(tag) {
+		const tags = [].concat(this.state.tags, tag);
+		this.setState({ tags });
+	}
+
+	onSearch = () => {
+		const { suggestions } = this.props;
+		if (this.state.tags.length === 0) {
+			this.props.filteredData(suggestions);
+			return;
 		}
+		const sugs = suggestions.filter((sug) => {
+			let s = sug;
+			return this.state.tags.find((tag) => {
+				return s.title === tag.name;
+			});
+		});
+
+		this.props.filteredData(sugs);
 	};
 
 	render() {
-		const {
-			onChange,
-			onClick,
-			onKeyDown,
-			state: { activeSuggestion, filteredSuggestions, showSuggestions, userInput },
-		} = this;
-
-		let suggestionsListComponent;
-
-		if (showSuggestions && userInput) {
-			if (filteredSuggestions.length) {
-				suggestionsListComponent = (
-					<ul className="suggestions">
-						{filteredSuggestions.map((suggestion, index) => {
-							let className;
-
-							// Flag the active suggestion with a class
-							if (index === activeSuggestion) {
-								className = 'suggestion-active';
-							}
-
-							return (
-								<li className={className} key={suggestion.name} onClick={onClick}>
-									{suggestion.name}
-								</li>
-							);
-						})}
-					</ul>
-				);
-			} else {
-				suggestionsListComponent = (
-					<div className="no-suggestions">
-						<em>No suggestions, you're on your own!</em>
-					</div>
-				);
-			}
-		}
-
 		return (
 			<Fragment>
-				<input
-					className="searchfield"
-					type="text"
-					onChange={onChange}
-					onKeyDown={onKeyDown}
-					value={userInput}
+				<ReactTags
+					tags={this.state.tags}
+					suggestions={this.state.suggestions}
+					handleDelete={this.handleDelete.bind(this)}
+					handleAddition={this.handleAddition.bind(this)}
+					autoresize={false}
+					allowNew={true}
+					noSuggestionsText="noSuggestions"
 				/>
-				{suggestionsListComponent}
+				<span className="btn btn-primary btn-sm" onClick={this.onSearch}>
+					Search
+				</span>
 			</Fragment>
 		);
 	}

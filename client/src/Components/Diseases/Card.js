@@ -4,23 +4,15 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cancer from '../../Images/Diseases/1.png';
 import { deleteDisease } from '../../Api/Disease';
 
 const Card = ({ data, history }) => {
-	const onAddSubdisease = (dId) => {
-		history.push(`/add_subdisease/${dId}`);
-	};
-
-	const onUpdateDisease = (disease) => {
-		history.push(`/update_disease/${disease._id}`, disease);
-	};
-
-	const onDeleteDisease = (dId) => {
-		deleteDisease(dId);
-	};
+	useEffect(() => {
+		console.log('here');
+	}, []);
 
 	return (
 		<div className="col-lg-4 my-3 ">
@@ -31,30 +23,16 @@ const Card = ({ data, history }) => {
 				}}
 			>
 				<div className="img-container">
-					<h6> {data.title} </h6>
+					<h5>
+						<Link to={{ pathname: `/subdisease/${data._id}`, state: { data } }}>{data.title}</Link>
+					</h5>
 					<div>
 						<img width="30px" src={Cancer} />
 					</div>
 				</div>
 				<div>
-					{data.subdiseases.map((subdisease, i) => {
-						return (
-							<span key={subdisease.title}>
-								<Link to={`/diseases/${subdisease._id}`}>{subdisease.title}, </Link>
-							</span>
-						);
-					})}
-				</div>
-				<div style={{ textAlign: 'center' }} className="btn-group">
-					<span className="btn btn-primary btn-sm" onClick={() => onAddSubdisease(data._id)}>
-						Add
-					</span>
-					<span className="btn btn-info btn-sm" onClick={() => onUpdateDisease(data)}>
-						Update
-					</span>
-					<span className="btn btn-danger btn-sm" onClick={() => onDeleteDisease(data._id)}>
-						Delete
-					</span>
+					<h6>Description</h6>
+					<p>{data.description}</p>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,37 @@
 const Disease = require('../models/disease');
 const Subdisease = require('../models/subdisease');
+const subdisease = require('../models/subdisease');
+
+exports.getSubdiseases = (req, res) => {
+	Disease.findById(req.params.dId, (err, foundDisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(foundDisease);
+			let ret = [];
+			for (let i = 0; i < foundDisease.subdiseases.length; i++) {
+				Subdisease.findById(foundDisease.subdiseases[i], (e, foundSubdisease) => {
+					if (e) {
+						console.log(e);
+					} else {
+						console.log(foundSubdisease);
+						ret.push(foundSubdisease);
+					}
+				});
+			}
+
+			console.log(ret);
+			res.send(ret);
+		}
+	});
+	Subdisease.findById(req.params.sdId, (err, foundSubdisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(foundSubdisease);
+		}
+	});
+};
 
 exports.getSubdisease = async (req, res) => {
 	Subdisease.findById(req.params.sdId, (err, foundSubdisease) => {
@@ -11,32 +43,24 @@ exports.getSubdisease = async (req, res) => {
 	});
 };
 exports.createSubdisease = (req, res) => {
-	// console.log(req.body);
-	// let data = JSON.parse(Object.keys(req.body)[0]);
-	// data.books = req.body[JSON.parse(Object.keys(req.body)[0])];
-	// console.log(data);
 	console.log(req.body);
-	// console.log(Object.keys(req.body)[0]);
-	// Disease.findById(req.params.dId, (err, foundDisease) => {
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log('found the disease');
-	// 		console.log(foundDisease);
-	// 		req.body.disease = req.params.dId;
-	// 		console.log(req.body);
-	// 		Subdisease.create(req.body, function(err, subdisease) {
-	// 			if (err) {
-	// 				console.log(err);
-	// 			} else {
-	// 				subdisease.save();
-	// 				foundDisease.subdiseases.push(subdisease);
-	// 				foundDisease.save();
-	// 				res.send(subdisease);
-	// 			}
-	// 		});
-	// 	}
-	// });
+	Disease.findById(req.params.dId, (err, foundDisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			req.body.disease = req.params.dId;
+			Subdisease.create(req.body, function(err, subdisease) {
+				if (err) {
+					console.log(err);
+				} else {
+					subdisease.save();
+					foundDisease.subdiseases.push(subdisease);
+					foundDisease.save();
+					res.send(subdisease);
+				}
+			});
+		}
+	});
 };
 
 exports.updateSubdisease = (req, res) => {
@@ -58,18 +82,17 @@ exports.deleteSubdisease = (req, res) => {
 				if (err) {
 					console.log(err);
 				} else {
-					console.log('found the disease');
-					console.log(foundDisease);
 					foundDisease.subdiseases = arrayRemove(foundDisease.subdiseases, req.params.sdId);
 					foundDisease.save();
 				}
 			});
 			foundSubdisease.remove();
 			const response = {
+				status: 200,
 				message: 'Subdisease successfully deleted',
 				id: req.params.sdid
 			};
-			res.status(200).send(response);
+			res.send(response);
 		}
 	});
 };

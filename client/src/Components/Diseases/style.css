@@ -1,60 +1,102 @@
+.diseases_title {
+	margin-top: 70px;
+}
 
-  .diseases_title{
-    margin-top: 70px;
-  }
-  
-  .provide-card-row{
-    display: flex;
-    flex-wrap: wrap;
-    overflow-wrap: break-word;
-    width: 100%;
-    margin-right: auto;
-    margin-left: auto;
-  }
-  .card{
-      border-radius: 16px !important;
-  }
+.provide-card-row {
+	display: flex;
+	flex-wrap: wrap;
+	overflow-wrap: break-word;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+}
+.card {
+	border-radius: 16px !important;
+}
 
-  .searchfield {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    width: 100%;
-  }
-  
-  .no-suggestions {
-    color: #999;
-    padding: 0.5rem;
-  }
-  
-  .suggestions {
-    border: 1px solid #999;
-    border-top-width: 0;
-    list-style: none;
-    margin-top: 0;
-    max-height: 143px;
-    overflow-y: auto;
-    padding-left: 0;
-    width: 100%;
-  }
-  
-  .suggestions li {
-    padding: 0.5rem;
-  }
-  
-  .suggestion-active,
-  .suggestions li:hover {
-    background-color: #cecece;
-    color: black;
-    cursor: pointer;
-    font-weight: 700;
-  }
-  
-  .suggestions li:not(:last-of-type) {
-    border-bottom: 1px solid #999;
-  }
+.searchfield {
+	border: 1px solid #999;
+	padding: 0.5rem;
+	width: 100%;
+}
 
-  .img-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
+.no-suggestions {
+	color: #999;
+	padding: 0.5rem;
+}
+
+.suggestions {
+	border: 1px solid #999;
+	border-top-width: 0;
+	list-style: none;
+	margin-top: 0;
+	max-height: 143px;
+	overflow-y: auto;
+	padding-left: 0;
+	width: 100%;
+}
+
+.suggestions li {
+	padding: 0.5rem;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+	background-color: #cecece;
+	color: black;
+	cursor: pointer;
+	font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+	border-bottom: 1px solid #999;
+}
+
+.img-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.sideBar {
+	width: 25vw;
+	position: fixed;
+	z-index: 1;
+	top: 7%;
+	bottom: 0;
+	left: 0;
+	background-color: white;
+	overflow-y: scroll;
+	padding-top: 20px;
+	border-right: 1px solid rgb(218, 218, 218);
+}
+
+.sideBar a {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	color: #555353;
+	display: block;
+}
+
+.sideBar a:hover {
+	color: Black;
+	background: rgb(221, 221, 221);
+}
+
+.main-div {
+	margin-left: 25vw;
+	padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+.ll {
+	cursor: pointer;
+}

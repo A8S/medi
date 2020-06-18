@@ -6,7 +6,7 @@ import Signup from './Components/Signup';
 import Home from './Components/Home';
 import AboutUs from './Components/AboutUs';
 import Diseases from './Components/Diseases';
-import DiseaseDetail from './Components/Diseases/DiseaseDetail';
+import SubdiseaseDetail from './Components/Diseases/SubdiseaseDetail';
 import Pathy from './Components/Pathy';
 import ContactUs from './Components/ContactUs';
 import Profile from './Components/Profile';
@@ -30,6 +30,7 @@ import Feedback from './Components/Feedback';
 import AddDisease from './Components/Diseases/AddDisease';
 import AddSubdisease from './Components/Diseases/AddSubdisease';
 import UpdateDisease from './Components/Diseases/UpdateDisease';
+import UpdateSubdisease from './Components/Diseases/UpdateSubdisease';
 
 const MainRouter = () => (
 	<div>
@@ -39,10 +40,11 @@ const MainRouter = () => (
 			<Route exact path="/post/:postId" component={SinglePost} />
 			<Route exact path="/pathy" component={Pathy} />
 			<Route exact path="/diseases" component={Diseases} />
-			<Route exact path="/diseases/:id" component={DiseaseDetail} />
+			<Route exact path="/subdisease/:sdid" component={SubdiseaseDetail} />
 			<Route exact path="/add_disease" component={AddDisease} />
 			<Route exact path="/add_subdisease/:dId" component={AddSubdisease} />
 			<Route exact path="/update_disease/:dId" component={UpdateDisease} />
+			<Route exact path="/update_subdisease/:sdId" component={UpdateSubdisease} />
 			{/* <Route exact path="/disease/:diseasename" component={DiseaseDetail} /> */}
 			<Route exact path="/aboutus" component={AboutUs} />
 			<Route exact path="/contactus" component={ContactUs} />

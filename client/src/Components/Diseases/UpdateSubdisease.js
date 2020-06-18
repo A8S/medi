@@ -1,7 +1,7 @@
 import React from 'react';
-import { createSubdisease } from '../../Api/Subdisease';
+import { updateSubdisease } from '../../Api/Subdisease';
 
-class AddSubdisease extends React.Component {
+class UpdateSubdisease extends React.Component {
 	state = {
 		title: '',
 		description: '',
@@ -32,9 +32,30 @@ class AddSubdisease extends React.Component {
 		references: []
 	};
 
+	componentDidMount() {
+		const {
+			title,
+			bestTherapy,
+			description,
+			allopathy,
+			homeopathy,
+			ayurveda,
+			books,
+			references
+		} = this.props.history.location.state;
+		this.setState({
+			title,
+			bestTherapy,
+			description,
+			allopathy,
+			homeopathy,
+			ayurveda,
+			books,
+			references
+		});
+	}
+
 	handleOnChange = (event) => {
-		// const data = new FormData(event.currentTarget);
-		// console.log(data);
 		const key = event.target.name;
 		const value = event.target.value;
 
@@ -109,17 +130,19 @@ class AddSubdisease extends React.Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		const res = await createSubdisease(this.state, this.props.match.params.dId);
+		console.log(this.props.match.params.sdId);
+		console.log(this.state);
+		const res = await updateSubdisease(this.props.match.params.sdId, this.state);
 		console.log(res);
 		if (res.status === 200) {
-			this.props.history.push('/diseases');
+			this.props.history.push(`/subdisease/${this.props.history.location.state._id}`);
 		}
 	};
 
 	render() {
 		return (
 			<div className="container">
-				<h2 className="my-5">Create a new Subdisease</h2>
+				<h2 className="my-5">Update Subdisease</h2>
 				<form onSubmit={this.handleSubmit}>
 					<div className="form-group">
 						<label className="text-muted">Subdisease Name</label>
@@ -241,11 +264,11 @@ class AddSubdisease extends React.Component {
 						</div>
 					</div>
 					<button className="btn btn-primary btn-raised" onClick={this.handleSubmit}>
-						Add Subdisease
+						Update Subdisease
 					</button>
 				</form>
 			</div>
 		);
 	}
 }
-export default AddSubdisease;
+export default UpdateSubdisease;

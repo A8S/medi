@@ -21,33 +21,24 @@ exports.getDisease = async (req, res) => {
 	});
 };
 exports.createDisease = (req, res) => {
-	console.log(JSON.parse(Object.keys(req.body)[0]));
-	const { title } = JSON.parse(Object.keys(req.body)[0]);
-	let disease = new Disease({ title }); // so post will be there with all the fields coming
-
-	disease.save((err, result) => {
+	console.log(req.body);
+	Disease.create(req.body, function(err, createdDisease) {
 		if (err) {
-			return res.status(400).json({
-				error: err
-			});
+			console.log(err);
+		} else {
+			res.send(createdDisease);
 		}
-		res.json(result);
 	});
 };
 
 exports.updateDisease = (req, res) => {
-	Disease.findByIdAndUpdate(
-		req.params.dId,
-		JSON.parse(Object.keys(req.body)[0]),
-		{ new: true },
-		(err, updatedDisease) => {
-			if (err) {
-				console.log(err);
-			} else {
-				res.send(updatedDisease);
-			}
+	Disease.findByIdAndUpdate(req.params.dId, req.body, { new: true }, (err, updatedDisease) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(updatedDisease);
 		}
-	);
+	});
 };
 
 exports.deleteDisease = (req, res) => {
@@ -66,10 +57,11 @@ exports.deleteDisease = (req, res) => {
 					console.log(err);
 				} else {
 					const response = {
+						status: 200,
 						message: 'Disease successfully deleted',
 						id: req.params.dId
 					};
-					res.status(200).send(response);
+					res.send(response);
 				}
 			});
 		}
