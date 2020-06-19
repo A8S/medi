@@ -140,7 +140,7 @@ class Footer extends Component {
 								</div>
 
 								<div className="col-md-3">
-									<h5 className=" mt-3 mb-4 heading">Fill the Form <br/> to Contact Us</h5>
+									<h5 className=" mt-3 mb-4 heading">Register to our <br/> Newsletter</h5>
 									{queryForm()}
 								</div>
 							</div>
