@@ -209,8 +209,8 @@ class SubdiseaseDetail extends React.Component {
 							</div>
 						</div>
 					</span>
-				</Tabs>
-				<div className="row">
+					Books
+					<span>
 					<div className="col-md-2">
 						<h5>Books</h5>
 					</div>
@@ -221,8 +221,9 @@ class SubdiseaseDetail extends React.Component {
 							})}
 						</p>
 					</div>
-				</div>
-				<div className="row">
+					</span>
+					References
+					<span>
 					<div className="col-md-2">
 						<h5>References</h5>
 					</div>
@@ -237,10 +238,9 @@ class SubdiseaseDetail extends React.Component {
 							})}
 						</p>
 					</div>
-				</div>
-
-				<h2>Related Posts</h2>
-				<Posts />
+					</span>
+					
+				</Tabs>
 				<div style={{ textAlign: 'center', paddingBottom: '20px' }} className="btn-group">
 					<span className="btn btn-info btn-sm" onClick={() => this.onUpdateSubdisease()}>
 						Update
@@ -249,6 +249,16 @@ class SubdiseaseDetail extends React.Component {
 						Delete
 					</span>
 				</div>
+				<div className="row">
+				
+				</div>
+				<div className="row">
+					
+				</div>
+
+				<h2>Related Posts</h2>
+				<Posts />
+				
 			</div>
 			// <div>hgj</div>
 		);

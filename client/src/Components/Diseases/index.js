@@ -16,7 +16,7 @@ import Cancer from '../../Images/Diseases/1.png';
 import './style.css';
 import { getDiseases, deleteDisease, updateDisease } from '../../Api/Disease';
 import { getSubdisease } from '../../Api/Subdisease';
-
+import Footer from '../Footer';
 class Diseases extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,7 +31,7 @@ class Diseases extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({ user: isAuthenticated().user });
+	//	this.setState({ user: isAuthenticated().user });
 		console.log('mounted');
 		getDiseases().then((diseases) => {
 			this.setState({

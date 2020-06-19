@@ -5,7 +5,7 @@ import CardLayout from '../WhatWeDo';
 import logo from '../../Images/logo.svg';
 import Testimonial from '../ContactUs/Testimonial';
 import Testimonialdata from '../../Data/Testimonial_data';
-
+import Footer from '../Footer';
 class Home extends Component {
 	render() {
 		return (
@@ -82,6 +82,7 @@ class Home extends Component {
 						</button>
 					</Link>
 				</div>
+				<Footer />
 			</div>
 		);
 	}
