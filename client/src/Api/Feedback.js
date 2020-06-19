@@ -17,9 +17,6 @@ export const createFeedback = async (feedback) => {
 	return axios({
 		method: 'post',
 		url: `${serverUrl}/api/feedback`,
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
 		data: feedback
 	})
 		.then(function(response) {

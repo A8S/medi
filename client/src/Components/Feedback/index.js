@@ -13,6 +13,7 @@ class Feedback extends Component {
 
 	componentDidMount() {
 		getFeedbacks().then((feedbacks) => {
+			console.log(feedbacks);
 			this.setState({
 				feedback: feedbacks
 			});
@@ -30,20 +31,24 @@ class Feedback extends Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		const data = new FormData(e.currentTarget);
-		var object = {};
-		console.log(data);
-		data.forEach(function(value, key) {
-			console.log(value + ' ' + key);
-			object[key] = value;
-		});
-		console.log(object);
+		const { name, title, description, rating } = this.state;
+		var object = {
+			name,
+			title,
+			description,
+			rating
+		};
+
 		const res = await createFeedback(object);
 		console.log(res);
 		if (res.status == 200) {
 			getFeedbacks().then((feedbacks) => {
 				this.setState({
-					feedback: feedbacks
+					feedback: feedbacks,
+					title: '',
+					name: '',
+					description: '',
+					rating: null
 				});
 			});
 		}

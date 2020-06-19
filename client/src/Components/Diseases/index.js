@@ -25,11 +25,13 @@ class Diseases extends React.Component {
 			disease: [],
 			filteredData: [],
 			activeIndex: 0,
-			subdiseases: []
+			subdiseases: [],
+			user: null
 		};
 	}
 
 	componentDidMount() {
+		this.setState({ user: isAuthenticated().user });
 		console.log('mounted');
 		getDiseases().then((diseases) => {
 			this.setState({

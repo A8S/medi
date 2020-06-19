@@ -11,7 +11,7 @@ exports.getFeedbacks = (req, res) => {
 };
 
 exports.createFeedback = (req, res) => {
-	Feedback.create(JSON.parse(Object.keys(req.body)[0]), (err, createFeedback) => {
+	Feedback.create(req.body, (err, createFeedback) => {
 		if (err) {
 			console.log(err);
 		} else {
