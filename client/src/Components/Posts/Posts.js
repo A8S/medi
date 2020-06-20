@@ -5,18 +5,22 @@ import { Link } from 'react-router-dom';
 import { list } from '../../Api/Post';
 // import DefaultPost from '../../Images/mountains.jpg';
 
+import { Table } from 'react-bootstrap';
+
+import './style.css';
+
 class Posts extends React.Component {
 	constructor() {
 		super();
 		this.state = {
 			posts: [],
 			page: 1,
-			noMorePosts: false
+			noMorePosts: false,
 		};
 	}
 
-	loadPosts = (page) => {
-		list(page).then((data) => {
+	loadPosts = page => {
+		list(page).then(data => {
 			if (data.error) {
 				console.log(data.error);
 			} else {
@@ -29,30 +33,38 @@ class Posts extends React.Component {
 		this.loadPosts(this.state.page);
 	}
 
-	loadMore = (number) => {
+	loadMore = number => {
 		this.setState({ page: this.state.page + number });
 		this.loadPosts(this.state.page + number);
 	};
 
-	loadLess = (number) => {
+	loadLess = number => {
 		this.setState({ page: this.state.page - number });
 		this.loadPosts(this.state.page - number);
 	};
 
-	renderPosts = (posts) => {
+	renderPosts = posts => {
 		return (
 			<div className="row">
-				{posts.map((post, i) => {
-					console.log(post);
-					// map only works with arrays
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Username</th>
+						</tr>
+					</thead>
+					<tbody>
+						{posts.map((post, i) => {
+							console.log(post);
+							// map only works with arrays
 
-					const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
-					const posterName = post.postedBy ? post.postedBy.name : ' Unknown';
+							const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
+							const posterName = post.postedBy ? post.postedBy.name : ' Unknown';
 
-					return (
-						<table className="table table-striped table-bordered">
-							<tr>
-								<div className="card-body col-8">
+							return (
+								<tr>
 									{/* <img
 									src={`${process.env.REACT_APP_API_URL}/api/post/photo/${
 										post._id
@@ -90,15 +102,18 @@ class Posts extends React.Component {
 								</p> */}
 
 									<td>
-										<Link to={`/post/${post._id}`} className="btn btn-raised btn-primary btn-sm">
+										<Link
+											to={`/post/${post._id}`}
+											className="btn btn-raised btn-primary btn-sm"
+										>
 											Read more
 										</Link>
 									</td>
-								</div>
-							</tr>
-						</table>
-					);
-				})}
+								</tr>
+							);
+						})}
+					</tbody>
+				</Table>
 			</div>
 		);
 	};

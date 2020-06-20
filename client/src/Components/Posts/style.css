@@ -1,6 +1,9 @@
-.postButton{
-    width: 280px;
-    height: 47px;
-    margin-bottom: 2%;
+.postButton {
+	width: 280px;
+	height: 47px;
+	margin-bottom: 2%;
+}
 
+.btn .button {
+	color: 2a9d8f !important;
 }

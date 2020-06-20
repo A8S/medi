@@ -4,6 +4,8 @@ import { Link, withRouter } from 'react-router-dom'; // withRouter is higher ord
 import logo from '../../Images/logo.svg';
 import { signout, isAuthenticated } from '../../Api';
 
+import './style.css';
+
 const isActive = (history, path) => {
 	if (history.location.pathname === path) return { color: 'white' };
 };
@@ -16,54 +18,53 @@ class NavDropdown extends React.Component {
 		};
 	}
 
- 	showDropdown(e) {
- 		e.preventDefault();
- 		this.setState(prevState => ({
- 			isToggleOn: !prevState.isToggleOn,
- 		}));
- 	}
+	showDropdown(e) {
+		e.preventDefault();
+		this.setState(prevState => ({
+			isToggleOn: !prevState.isToggleOn,
+		}));
+	}
 
- 	render() {
- 		const classDropdownMenu = `dropdown-menu${this.state.isToggleOn ? ' show' : ''}`;
- 		return (
- 			<li className="nav-item dropdown">
- 				<Link
- 					className="nav-link dropdown-toggle"
- 					href="/"
- 					id="navbarDropdown"
- 					role="button"
- 					data-toggle="dropdown"
- 					aria-haspopup="true"
- 					aria-expanded="false"
- 					to={`/user/${isAuthenticated().user._id}`}
- 					style={{ color: '#fff' }}
- 					onClick={e => {
- 						this.showDropdown(e);
- 					}}
- 				>
- 					<i className="fa fa-user-circle fa-lg mx-2" />
- 					{`${isAuthenticated().user.name}`}
- 				</Link>
- 				<div
- 					className={classDropdownMenu}
- 					aria-labelledby="navbarDropdown"
- 					onMouseEnter={this.enterMenu}
- 					onMouseLeave={this.leaveMenu}
- 				>
- 					{this.props.children}
- 				</div>
- 			</li>
- 		);
- 	}
- }
+	render() {
+		const classDropdownMenu = `dropdown-menu${this.state.isToggleOn ? ' show' : ''}`;
+		return (
+			<li className="nav-item dropdown">
+				<Link
+					className="nav-link dropdown-toggle"
+					href="/"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+					to={`/user/${isAuthenticated().user._id}`}
+					style={{ color: '#fff' }}
+					onClick={e => {
+						this.showDropdown(e);
+					}}
+				>
+					<i className="fa fa-user-circle fa-lg mx-2" />
+					{`${isAuthenticated().user.name}`}
+				</Link>
+				<div
+					className={classDropdownMenu}
+					aria-labelledby="navbarDropdown"
+					onMouseEnter={this.enterMenu}
+					onMouseLeave={this.leaveMenu}
+				>
+					{this.props.children}
+				</div>
+			</li>
+		);
+	}
+}
 
 class Navigation extends React.Component {
 	render() {
 		const { history } = this.props;
 		return (
 			<div>
-			
-				<nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+				<nav className="navbar fixed-top navbar-expand-lg">
 					<Link className="navbar-brand" to="/">
 						<img src={logo} width="40" height="40" alt="logo" />
 					</Link>
@@ -81,7 +82,6 @@ class Navigation extends React.Component {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="nav navbar-nav navbar-nav mr-auto">
-						
 							<li className="nav-item">
 								<Link
 									className="nav-link"
@@ -136,9 +136,6 @@ class Navigation extends React.Component {
 									Feedback
 								</Link>
 							</li>
-							
-								
-							
 						</ul>
 
 						<ul className="nav navbar-nav navbar-right ml-md-auto ">
@@ -150,10 +147,12 @@ class Navigation extends React.Component {
 											style={isActive(history, '/signin')}
 											to="/signin"
 										>
-											<button type="button" className="btn btn-default float-right">
-											Sign In
-									</button>
-											
+											<button
+												type="button"
+												className="btn btn-default float-right"
+											>
+												Sign In
+											</button>
 										</Link>
 									</li>
 									<li className="nav-item">
@@ -161,9 +160,13 @@ class Navigation extends React.Component {
 											className="nav-link"
 											style={isActive(history, '/signup')}
 											to="/signup"
-										><button type="button" className="btn btn-primary float-right">
-										Sign Up
-								</button>
+										>
+											<button
+												type="button"
+												className="btn btn-primary float-right"
+											>
+												Sign Up
+											</button>
 										</Link>
 									</li>
 								</>
@@ -182,27 +185,57 @@ class Navigation extends React.Component {
 
 							{isAuthenticated() && ( // user authenticated show logout and username
 								<>
-									
 									<NavDropdown name="Dropdown">
-										<Link className="dropdown-item" to={`/user/${isAuthenticated().user._id}`}>View Profile</Link>
-										<Link className="dropdown-item" to={`/user/${isAuthenticated().user._id}`}>Bookmarks</Link>
-										<Link className="dropdown-item" to="/share_experience">Share Experience</Link>
-										<Link className="dropdown-item" to={`/myposts/${isAuthenticated().user._id}`}>My Posts</Link>
+										<Link
+											className="dropdown-item"
+											to={`/user/${isAuthenticated().user._id}`}
+										>
+											View Profile
+										</Link>
+										<Link
+											className="dropdown-item"
+											to={`/user/${isAuthenticated().user._id}`}
+										>
+											Bookmarks
+										</Link>
+										<Link className="dropdown-item" to="/share_experience">
+											Share Experience
+										</Link>
+										<Link
+											className="dropdown-item"
+											to={`/myposts/${isAuthenticated().user._id}`}
+										>
+											My Posts
+										</Link>
 										<div className="dropdown-divider" />
-										<Link className="dropdown-item" to={`/user/settings/${isAuthenticated().user._id}`}>Settings</Link>
-										
-										<a
-							className="dropdown-item"
-							style={(isActive(history, '/signup'), { cursor: 'pointer' })}
-							onClick={() => signout(() => history.push('/'))}
-						>Logout
-						</a><div className="dropdown-divider" />
-										<Link className="dropdown-item" to={`/faq`}>FAQ</Link>
-										<Link className="dropdown-item" to={`/privacypolicy`}>Privacy Policy</Link>
-										<Link className="dropdown-item" to={`/termsofuse`}>Terms of Use</Link>
+										<Link
+											className="dropdown-item"
+											to={`/user/settings/${isAuthenticated().user._id}`}
+										>
+											Settings
+										</Link>
 
-								
-									</NavDropdown> 
+										<a
+											className="dropdown-item"
+											style={
+												(isActive(history, '/signup'),
+												{ cursor: 'pointer' })
+											}
+											onClick={() => signout(() => history.push('/'))}
+										>
+											Logout
+										</a>
+										<div className="dropdown-divider" />
+										<Link className="dropdown-item" to={`/faq`}>
+											FAQ
+										</Link>
+										<Link className="dropdown-item" to={`/privacypolicy`}>
+											Privacy Policy
+										</Link>
+										<Link className="dropdown-item" to={`/termsofuse`}>
+											Terms of Use
+										</Link>
+									</NavDropdown>
 									{/* <li className="nav-item">
 										<a
 											className="nav-link"
