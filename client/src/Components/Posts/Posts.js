@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { list } from '../../Api/Post';
 // import DefaultPost from '../../Images/mountains.jpg';
 
-import { Table } from 'react-bootstrap';
+import { Table, Pagination } from 'react-bootstrap';
 
 import './style.css';
 
@@ -17,6 +17,7 @@ class Posts extends React.Component {
 			page: 1,
 			noMorePosts: false,
 		};
+		let items = [];
 	}
 
 	loadPosts = page => {
@@ -44,6 +45,16 @@ class Posts extends React.Component {
 	};
 
 	renderPosts = posts => {
+		let items = [];
+
+		for (let number = 1; number <= posts.length; number++) {
+			items.push(
+				<Pagination.Item key={number} active={number === this.state.pagepage}>
+					{number}
+				</Pagination.Item>,
+			);
+		}
+
 		return (
 			<div className="row">
 				<Table striped bordered hover>
@@ -114,6 +125,7 @@ class Posts extends React.Component {
 						})}
 					</tbody>
 				</Table>
+				<Pagination>{items}</Pagination>
 			</div>
 		);
 	};
@@ -123,34 +135,13 @@ class Posts extends React.Component {
 		return (
 			<div>
 				{' '}
+				{this.renderPosts(posts)}
+				<Pagination>
+					{page > 1 ? <Pagination.Prev onClick={() => this.loadLess(1)} /> : ''}
+					{posts.length ? <Pagination.Next onClick={() => this.loadMore(1)} /> : ''}
+				</Pagination>
 				<h2 className="mt-5 mb-5">{!posts.length ? 'No more posts!' : ''}</h2>
 				{/* <h2 className="mt-5 mb-5">{!posts.length ? 'Loading...' : 'Recent Posts'}</h2> */}
-				{this.renderPosts(posts)}
-				{page > 1 ? (
-					<button
-						className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
-						onClick={() => this.loadLess(1)}
-						type="button"
-					>
-						{' '}
-						Previous
-						{/* Previous ({this.state.page - 1}) */}
-					</button>
-				) : (
-					''
-				)}
-				{posts.length ? (
-					<button
-						className="btn btn-raised btn-success mt-5 mb-5"
-						onClick={() => this.loadMore(1)}
-						type="button"
-					>
-						Next
-						{/* Next ({page + 1}) */}
-					</button>
-				) : (
-					''
-				)}
 			</div>
 		);
 	}
