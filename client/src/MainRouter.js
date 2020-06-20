@@ -5,7 +5,7 @@ import Signin from './Components/Signin';
 import Signup from './Components/Signup';
 import Home from './Components/Home';
 import AboutUs from './Components/AboutUs';
-import Diseases from './Components/Diseases';
+import Diseases from './Components/Diseases/Diseases';
 import DiseaseDetail from './Components/Diseases/DiseaseDetail';
 import Pathy from './Components/Pathy';
 import ContactUs from './Components/ContactUs';
