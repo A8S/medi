@@ -11,9 +11,13 @@
 	margin-left: auto;
 }
 .card {
-	border-radius: 16px !important;
+	/* border-radius: 16px !important; */
+	height: 20vh;
 }
 
+.readMoreButton {
+	background-color: #2a9d8f;
+}
 .searchfield {
 	border: 1px solid #999;
 	padding: 0.5rem;
@@ -61,10 +65,9 @@
 .button .btn {
 	color: 2a9d8f !important;
 }
-.sideBar {
+.SideBar {
 	width: 25vw;
 	position: fixed;
-	z-index: 1;
 	top: 7%;
 	bottom: 0;
 	left: 0;
@@ -72,17 +75,17 @@
 	overflow-y: scroll;
 	padding-top: 20px;
 	border-right: 1px solid rgb(218, 218, 218);
-	height: 40%;
+	height: 60%;
 }
 
-.sideBar a {
+.SideBar a {
 	padding: 6px 8px 6px 16px;
 	text-decoration: none;
 	color: #555353;
 	display: block;
 }
 
-.sideBar a:hover {
+.SideBar a:hover {
 	color: Black;
 	background: rgb(221, 221, 221);
 }
@@ -105,75 +108,72 @@
 	cursor: pointer;
 }
 
-.makeitflex{
-    display: inline-flex;
-    width: 45%;
-  }
+.makeitflex {
+	display: inline-flex;
+	width: 45%;
+}
 
-  .scroll-y {
-    overflow-y: auto;
-    height: 28rem;
-  }
+.scroll-y {
+	overflow-y: auto;
+	height: 28rem;
+}
 
-  /* .flex-container{
+/* .flex-container{
     width: 50%;
   } */
 
-  
-
-  .cursor-pointer{
-    cursor: pointer;
-  }
-
-  .card-body{
-    padding: 10px;
-  }
-
-  .act{
-    background-color: blue;
-    /* color: white; */
-  }
-
-  .act > strong {
-    color: white;
-  }
-
-.searchbox{
-  padding-left: 60%;
-  padding-right: 2%;
+.cursor-pointer {
+	cursor: pointer;
 }
 
-.form-inline{
-  padding-top: 5px;
+.card-body {
+	padding: 10px;
 }
 
-@media screen and (max-width: 500px){
-  .makeitflex{
-    width: 90%;
-  }
+.act {
+	background-color: blue;
+	/* color: white; */
 }
 
-@media screen and (max-width: 980px){
-  .searchbox{
-    padding-left: 40%;
-  }
+.act > strong {
+	color: white;
 }
 
-
-@media screen and (max-width: 800px){
-  .searchbox{
-    padding-left: 30%;
-  }
+.searchbox {
+	padding-left: 60%;
+	padding-right: 2%;
 }
 
-@media screen and (max-width: 600px){
-  .searchbox{
-    padding-left: 20%;
-  }
+.form-inline {
+	padding-top: 5px;
 }
 
-@media screen and (max-width: 400px){
-  .searchbox{
-    padding-left: 0;
-  }
+@media screen and (max-width: 500px) {
+	.makeitflex {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 980px) {
+	.searchbox {
+		padding-left: 40%;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.searchbox {
+		padding-left: 30%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.searchbox {
+		padding-left: 20%;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.searchbox {
+		padding-left: 0;
+	}
 }

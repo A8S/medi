@@ -4,32 +4,26 @@ import logo from '../../Images/logo.svg';
 import './style.css';
 import { isAuthenticated } from '../../Api';
 
-const queryForm=()=>(
+const queryForm = () => (
 	<form>
 		<div className="form-group">
-			<input placeholder="Name"className="form-control">	
-			</input>
+			<input placeholder="Name" className="form-control" />
 		</div>
 
 		<div className="form-group">
-			<input type="email"className="form-control"placeholder="Email"></input>
+			<input type="email" className="form-control" placeholder="Email" />
 		</div>
 
-		
-		
-		<button
-          type="submit"
-          className="btn btn-outline-success mb-3"
-        >
-          Submit
-        </button>
+		<button type="submit" className="btn btn-outline-success mb-3">
+			Submit
+		</button>
 	</form>
 );
 class Footer extends Component {
 	render() {
 		return (
 			<div>
-				{ (
+				{
 					<footer className="bg-dark text-white mt-4">
 						<div className="container text-center text-md-left">
 							<div className="row">
@@ -45,30 +39,37 @@ class Footer extends Component {
 										</li>
 									</ul>
 									<div className="col-md-12 col-sm-12 icon">
-						<ul className="social-network social-circle ">
-							<li>
-								<a href="/" className="icoFacebook" title="Facebook">
-									<i className="fa fa-facebook" />
-								</a>
-							</li>
-							<li>
-								<a href="/" className="icoTwitter" title="Twitter">
-									<i className="fa fa-twitter" />
-								</a>
-							</li>
-							<li>
-								<a href="/" className="icoGoogle" title="Google +">
-									<i className="fa fa-google-plus" />
-								</a>
-							</li>
-							<li>
-								<a href="/" className="icoLinkedin" title="Linkedin">
-									<i className="fa fa-linkedin" />
-								</a>
-							</li>
-						</ul>
-					</div>
-							
+										<ul className="social-network social-circle ">
+											<li>
+												<a
+													href="/"
+													className="icoFacebook"
+													title="Facebook"
+												>
+													<i className="fa fa-facebook" />
+												</a>
+											</li>
+											<li>
+												<a href="/" className="icoTwitter" title="Twitter">
+													<i className="fa fa-twitter" />
+												</a>
+											</li>
+											<li>
+												<a href="/" className="icoGoogle" title="Google +">
+													<i className="fa fa-google-plus" />
+												</a>
+											</li>
+											<li>
+												<a
+													href="/"
+													className="icoLinkedin"
+													title="Linkedin"
+												>
+													<i className="fa fa-linkedin" />
+												</a>
+											</li>
+										</ul>
+									</div>
 								</div>
 
 								<div className="col-md-2 ">
@@ -140,7 +141,9 @@ class Footer extends Component {
 								</div>
 
 								<div className="col-md-3">
-									<h5 className=" mt-3 mb-4 heading">Register to our <br/> Newsletter</h5>
+									<h5 className=" mt-3 mb-4 heading">
+										Register to our <br /> Newsletter
+									</h5>
 									{queryForm()}
 								</div>
 							</div>
@@ -155,7 +158,7 @@ class Footer extends Component {
 							</p>
 						</div>
 					</footer>
-				)}
+				}
 			</div>
 		);
 	}

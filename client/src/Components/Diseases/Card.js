@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cancer from '../../Images/Diseases/1.png';
 import { deleteDisease } from '../../Api/Disease';
+import { Button } from 'react-bootstrap';
 
 const Card = ({ data, history }) => {
 	useEffect(() => {
@@ -15,26 +16,30 @@ const Card = ({ data, history }) => {
 	}, []);
 
 	return (
-		<div className="col-lg-4 my-3 ">
+		<div className="card makeitflex m-2 mr-0">
 			<div
-				className="card shadow h-100 px-3"
+				className="card-body"
 				style={{
-					overflowWrap: 'break-word'
+					overflowWrap: 'break-word',
 				}}
 			>
 				<div className="img-container">
 					<h5>
-						<Link to={{ pathname: `/subdisease/${data._id}`, state: { data } }}>{data.title}</Link>
+						<h3>{data.title}</h3>
 					</h5>
 					<div>
 						<img width="30px" src={Cancer} />
 					</div>
 				</div>
-				<div>
-					<h6>Description</h6>
-					<p>{data.description}</p>
-				</div>
+
+				<p className="card-text">{data.description}</p>
 			</div>
+			<Link
+				className="readMoreButton"
+				to={{ pathname: `/subdisease/${data._id}`, state: { data } }}
+			>
+				Read More
+			</Link>
 		</div>
 	);
 };

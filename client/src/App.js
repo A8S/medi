@@ -40,7 +40,6 @@ class App extends React.Component {
 							<MainRouter />
 						</div>
 					)}
-					<Footer />
 				</div>
 			</BrowserRouter>
 		);

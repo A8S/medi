@@ -26,16 +26,16 @@ class Diseases extends React.Component {
 			filteredData: [],
 			activeIndex: 0,
 			subdiseases: [],
-			user: null
+			user: null,
 		};
 	}
 
 	componentDidMount() {
-	//	this.setState({ user: isAuthenticated().user });
+		//	this.setState({ user: isAuthenticated().user });
 		console.log('mounted');
-		getDiseases().then((diseases) => {
+		getDiseases().then(diseases => {
 			this.setState({
-				disease: diseases
+				disease: diseases,
 			});
 			this.setSubdiseases(diseases, 0);
 		});
@@ -44,13 +44,13 @@ class Diseases extends React.Component {
 	setSubdiseases = (diseases, index) => {
 		this.setState({
 			subdiseases: [],
-			filteredData: []
+			filteredData: [],
 		});
 		for (let i = 0; i < diseases[index].subdiseases.length; i++) {
-			getSubdisease(diseases[index].subdiseases[i]).then((sub) => {
+			getSubdisease(diseases[index].subdiseases[i]).then(sub => {
 				this.setState({
-					subdiseases: [ ...this.state.subdiseases, sub ],
-					filteredData: [ ...this.state.filteredData, sub ]
+					subdiseases: [...this.state.subdiseases, sub],
+					filteredData: [...this.state.filteredData, sub],
 				});
 			});
 		}
@@ -63,23 +63,23 @@ class Diseases extends React.Component {
 	onAddDisease = () => {
 		this.props.history.push('/add_disease');
 	};
-	onAddSubdisease = (dId) => {
+	onAddSubdisease = dId => {
 		this.props.history.push(`/add_subdisease/${dId}`);
 	};
 
-	onUpdateDisease = (disease) => {
+	onUpdateDisease = disease => {
 		this.props.history.push(`/update_disease/${disease._id}`, disease);
 	};
 
-	onDeleteDisease = (dId) => {
-		deleteDisease(dId).then((data) => {
+	onDeleteDisease = dId => {
+		deleteDisease(dId).then(data => {
 			if (data.status === 200) {
 				this.setState({
-					activeIndex: 0
+					activeIndex: 0,
 				});
-				getDiseases().then((diseases) => {
+				getDiseases().then(diseases => {
 					this.setState({
-						disease: diseases
+						disease: diseases,
 					});
 					this.setSubdiseases(diseases, 0);
 				});
@@ -87,9 +87,9 @@ class Diseases extends React.Component {
 		});
 	};
 
-	onDiseaseClick = (i) => {
+	onDiseaseClick = i => {
 		this.setState({
-			activeIndex: i
+			activeIndex: i,
 		});
 
 		this.setSubdiseases(this.state.disease, i);
@@ -101,16 +101,16 @@ class Diseases extends React.Component {
 			return <Card key={key} data={x} history={this.props.history} />;
 		});
 		return (
-			<div className="container">
+			<div className="container-fluid">
 				<div className="mt-2">
-					<div className="nav flex-column sideBar">
+					<div className="nav flex-column SideBar">
 						<ul className="list-group">
 							{this.state.disease.map((disease, index) => {
 								return (
 									<li
-										className={`list-group-item ll ${this.state.activeIndex === index
-											? 'active'
-											: null}`}
+										className={`list-group-item ll ${
+											this.state.activeIndex === index ? 'active' : null
+										}`}
 										key={index}
 										onClick={() => this.onDiseaseClick(index)}
 									>
@@ -122,7 +122,10 @@ class Diseases extends React.Component {
 					</div>
 					<div className="main-div">
 						<div>
-							<Autocomplete filteredData={this.filteredData} suggestions={this.state.subdiseases} />
+							<Autocomplete
+								filteredData={this.filteredData}
+								suggestions={this.state.subdiseases}
+							/>
 						</div>
 						<button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
 							Create Disease
@@ -133,19 +136,29 @@ class Diseases extends React.Component {
 						<div style={{ textAlign: 'center' }} className="btn-group">
 							<span
 								className="btn btn-primary btn-sm"
-								onClick={() => this.onAddSubdisease(this.state.disease[this.state.activeIndex]._id)}
+								onClick={() =>
+									this.onAddSubdisease(
+										this.state.disease[this.state.activeIndex]._id,
+									)
+								}
 							>
 								Add
 							</span>
 							<span
 								className="btn btn-info btn-sm"
-								onClick={() => this.onUpdateDisease(this.state.disease[this.state.activeIndex])}
+								onClick={() =>
+									this.onUpdateDisease(this.state.disease[this.state.activeIndex])
+								}
 							>
 								Update
 							</span>
 							<span
 								className="btn btn-danger btn-sm"
-								onClick={() => this.onDeleteDisease(this.state.disease[this.state.activeIndex]._id)}
+								onClick={() =>
+									this.onDeleteDisease(
+										this.state.disease[this.state.activeIndex]._id,
+									)
+								}
 							>
 								Delete
 							</span>

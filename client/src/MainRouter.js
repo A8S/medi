@@ -31,11 +31,21 @@ import AddDisease from './Components/Diseases/AddDisease';
 import AddSubdisease from './Components/Diseases/AddSubdisease';
 import UpdateDisease from './Components/Diseases/UpdateDisease';
 import UpdateSubdisease from './Components/Diseases/UpdateSubdisease';
+import Footer from './Components/Footer/index';
 
 const MainRouter = () => (
 	<div>
 		<Switch>
-			<Route exact path="/" component={Home} />
+			<Route
+				exact
+				path="/"
+				render={() => (
+					<div>
+						<Home />
+						<Footer />
+					</div>
+				)}
+			/>
 			<Route exact path="/posts" component={ViewPosts} />
 			<Route exact path="/post/:postId" component={SinglePost} />
 			<Route exact path="/pathy" component={Pathy} />

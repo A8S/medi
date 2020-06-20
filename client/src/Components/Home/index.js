@@ -18,14 +18,20 @@ class Home extends Component {
 						<div className="row">
 							<div className="col-md-6 ">
 								<Link to="/Signup">
-									<button type="button" className="btn btn-default buttonJoin float-right">
+									<button
+										type="button"
+										className="btn btn-default buttonJoin float-right"
+									>
 										Share Experiance
 									</button>
 								</Link>
 							</div>
 							<div className="col-md-6">
 								<Link to="/Signup">
-									<button type="button" className="btn btn-primary buttonJoin float-left">
+									<button
+										type="button"
+										className="btn btn-primary buttonJoin float-left"
+									>
 										Ask Suggestion
 									</button>
 								</Link>
@@ -82,7 +88,6 @@ class Home extends Component {
 						</button>
 					</Link>
 				</div>
-				<Footer />
 			</div>
 		);
 	}
