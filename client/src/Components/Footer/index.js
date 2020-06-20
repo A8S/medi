@@ -14,6 +14,7 @@ const queryForm = () => (
 			<input type="email" className="form-control" placeholder="Email" />
 		</div>
 
+<<<<<<< HEAD
 		<div className="form-group">
 			<textarea className="form-control" placeholder="Write Your Query" />
 		</div>
@@ -21,15 +22,23 @@ const queryForm = () => (
 		<button type="submit" className="btn btn-outline-success mb-3">
 			Submit
 		</button>
+=======
+		
+		
+		<button
+          type="submit"
+          className="btn btn-outline-success mb-3"
+        >
+          Submit
+        </button>
+>>>>>>> 08e9005a37ae80fa7b5babc1283fe5d32cc38c67
 	</form>
 );
 class Footer extends Component {
 	render() {
 		return (
 			<div>
-				{isAuthenticated() ? (
-					<div />
-				) : (
+				{ (
 					<footer className="bg-dark text-white mt-4">
 						<div className="container text-center text-md-left">
 							<div className="row">
@@ -135,7 +144,7 @@ class Footer extends Component {
 								</div>
 
 								<div className="col-md-3">
-									<h5 className=" mt-3 mb-4 heading">Fill the Form to Contact Us</h5>
+									<h5 className=" mt-3 mb-4 heading">Register to our <br/> Newsletter</h5>
 									{queryForm()}
 								</div>
 							</div>

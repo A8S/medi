@@ -5,8 +5,12 @@ import CardLayout from '../WhatWeDo';
 import logo from '../../Images/logo.svg';
 import Testimonial from '../ContactUs/Testimonial';
 import Testimonialdata from '../../Data/Testimonial_data';
+<<<<<<< HEAD
 import { subscribe } from '../../Api/Subscribe';
 
+=======
+import Footer from '../Footer';
+>>>>>>> 08e9005a37ae80fa7b5babc1283fe5d32cc38c67
 class Home extends Component {
 	state = {
 		email: ''
@@ -99,6 +103,7 @@ class Home extends Component {
 						</button>
 					</Link>
 				</div>
+<<<<<<< HEAD
 
 				<form className="container form-inline" onSubmit={this.onSubscribe}>
 					<div className="subscribe-div">
@@ -120,6 +125,9 @@ class Home extends Component {
 						</button>
 					</div>
 				</form>
+=======
+				<Footer />
+>>>>>>> 08e9005a37ae80fa7b5babc1283fe5d32cc38c67
 			</div>
 		);
 	}
