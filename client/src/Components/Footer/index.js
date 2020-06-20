@@ -2,43 +2,84 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../Images/logo.svg';
 import './style.css';
+import { submitQuery } from '../../Api/Query';
 import { isAuthenticated } from '../../Api';
 
-const queryForm = () => (
-	<form>
-		<div className="form-group">
-			<input placeholder="Name" className="form-control" />
-		</div>
-
-		<div className="form-group">
-			<input type="email" className="form-control" placeholder="Email" />
-		</div>
-
-<<<<<<< HEAD
-		<div className="form-group">
-			<textarea className="form-control" placeholder="Write Your Query" />
-		</div>
-
-		<button type="submit" className="btn btn-outline-success mb-3">
-			Submit
-		</button>
-=======
-		
-		
-		<button
-          type="submit"
-          className="btn btn-outline-success mb-3"
-        >
-          Submit
-        </button>
->>>>>>> 08e9005a37ae80fa7b5babc1283fe5d32cc38c67
-	</form>
-);
 class Footer extends Component {
+	state = {
+		name: '',
+		email: '',
+		query: ''
+	};
+
+	onFormSubmit = (event) => {
+		event.preventDefault();
+		submitQuery(this.state).then((data) => {
+			if (data.status === 200) {
+				this.setState({
+					name: '',
+					email: '',
+					query: ''
+				});
+			}
+		});
+	};
+
+	onChange = (event) => {
+		const key = event.target.name;
+		const value = event.target.value;
+
+		this.setState({
+			[key]: value
+		});
+	};
+
+	queryForm = () => (
+		<form onSubmit={this.onFormSubmit}>
+			<div className="form-group">
+				<label className="font-weight-bold">Name</label>
+				<input
+					onChange={this.onChange}
+					name="name"
+					value={this.state.name}
+					placeholder="Name"
+					className="form-control"
+				/>
+			</div>
+
+			<div className="form-group">
+				<label className="font-weight-bold">Email</label>
+				<input
+					onChange={this.onChange}
+					type="email"
+					className="form-control"
+					name="email"
+					value={this.state.email}
+					placeholder="Email"
+				/>
+			</div>
+
+			<div className="form-group">
+				<label className="font-weight-bold">Query</label>
+				<textarea
+					onChange={this.onChange}
+					className="form-control"
+					name="query"
+					value={this.state.query}
+					placeholder="Write Your Query"
+				/>
+			</div>
+
+			<button type="submit" className="btn btn-danger mb-3 float-right">
+				Submit
+			</button>
+		</form>
+	);
+
 	render() {
 		return (
 			<div>
-				{ (
+				{
 					<footer className="bg-dark text-white mt-4">
 						<div className="container text-center text-md-left">
 							<div className="row">
@@ -144,8 +185,10 @@ class Footer extends Component {
 								</div>
 
 								<div className="col-md-3">
-									<h5 className=" mt-3 mb-4 heading">Register to our <br/> Newsletter</h5>
-									{queryForm()}
+									<h5 className=" mt-3 mb-4 heading">
+										Register to our <br /> Newsletter
+									</h5>
+									{this.queryForm()}
 								</div>
 							</div>
 						</div>
@@ -159,7 +202,7 @@ class Footer extends Component {
 							</p>
 						</div>
 					</footer>
-				)}
+				}
 			</div>
 		);
 	}

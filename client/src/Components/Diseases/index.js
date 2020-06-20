@@ -31,11 +31,7 @@ class Diseases extends React.Component {
 	}
 
 	componentDidMount() {
-<<<<<<< HEAD
 		// this.setState({ user: isAuthenticated().user });
-=======
-	//	this.setState({ user: isAuthenticated().user });
->>>>>>> 08e9005a37ae80fa7b5babc1283fe5d32cc38c67
 		console.log('mounted');
 		getDiseases().then((diseases) => {
 			this.setState({

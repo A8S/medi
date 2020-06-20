@@ -29,6 +29,7 @@ const diseaseRoutes = require('./routes/disease');
 const subdiseaseRoutes = require('./routes/subdisease');
 const feedbackRoutes = require('./routes/feedback');
 const mailchimpRoutes = require('./routes/mailchimp');
+const queryRoutes = require('./routes/query');
 // apiDocs
 app.get('/api', (req, res) => {
 	fs.readFile('docs/apiDocs.json', (err, data) => {
@@ -61,6 +62,7 @@ app.use('/api', diseaseRoutes);
 app.use('/api', subdiseaseRoutes);
 app.use('/api', feedbackRoutes);
 app.use('/api', mailchimpRoutes);
+app.use('/api', queryRoutes);
 app.use(function(err, req, res, next) {
 	if (err.name === 'UnauthorizedError') {
 		// if encountered UnauthorizedError, provide this validation
