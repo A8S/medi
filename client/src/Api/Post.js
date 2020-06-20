@@ -1,3 +1,5 @@
+import { serverUrl } from '../variables';
+
 export const create = async (userId, token, post) => {
 	try {
 		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/post/new/${userId}`, {

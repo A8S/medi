@@ -1,3 +1,5 @@
+import { serverUrl } from '../variables';
+
 export const read = async (userId, token) => {
 	try {
 		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/user/${userId}`, {
@@ -5,8 +7,8 @@ export const read = async (userId, token) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		});
 		return response.json();
 	} catch (err) {
@@ -22,10 +24,10 @@ export const update = async (userId, token, user) => {
 			headers: {
 				Accept: 'application/json',
 				// 'Content-Type': 'application/json',      removed bz we are not sending the form data, we're sending a file data
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
 			// body: JSON.stringify(user),
-			body: user,
+			body: user
 		});
 		return response.json();
 	} catch (err) {
@@ -40,8 +42,8 @@ export const remove = async (userId, token) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
+				Authorization: `Bearer ${token}`
+			}
 		});
 		return response.json();
 	} catch (err) {
@@ -52,7 +54,7 @@ export const remove = async (userId, token) => {
 export const list = async () => {
 	try {
 		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/users`, {
-			method: 'GET',
+			method: 'GET'
 		});
 		return response.json();
 	} catch (err) {
@@ -79,9 +81,9 @@ export const follow = async (userId, token, followId) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${token}`
 			},
-			body: JSON.stringify({ userId, followId }),
+			body: JSON.stringify({ userId, followId })
 		});
 		return response.json();
 	} catch (err) {
@@ -95,14 +97,14 @@ export const unfollow = (userId, token, unfollowId) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${token}`
 		},
-		body: JSON.stringify({ userId, unfollowId }),
+		body: JSON.stringify({ userId, unfollowId })
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json();
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };
 
 export const findPeople = (userId, token) => {
@@ -111,11 +113,11 @@ export const findPeople = (userId, token) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
-		},
+			Authorization: `Bearer ${token}`
+		}
 	})
-		.then(response => {
+		.then((response) => {
 			return response.json;
 		})
-		.catch(err => console.log(err));
+		.catch((err) => console.log(err));
 };

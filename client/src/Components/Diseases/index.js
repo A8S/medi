@@ -17,6 +17,7 @@ import './style.css';
 import { getDiseases, deleteDisease, updateDisease } from '../../Api/Disease';
 import { getSubdisease } from '../../Api/Subdisease';
 import Footer from '../Footer';
+import { isAuthenticated } from '../../Api';
 class Diseases extends React.Component {
 	constructor(props) {
 		super(props);
@@ -26,12 +27,19 @@ class Diseases extends React.Component {
 			filteredData: [],
 			activeIndex: 0,
 			subdiseases: [],
-			user: null
+			admin: false
 		};
 	}
 
 	componentDidMount() {
 		// this.setState({ user: isAuthenticated().user });
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true
+				});
+			}
+		}
 		console.log('mounted');
 		getDiseases().then((diseases) => {
 			this.setState({
@@ -39,6 +47,17 @@ class Diseases extends React.Component {
 			});
 			this.setSubdiseases(diseases, 0);
 		});
+	}
+
+	componentDidUpdate() {
+		// if (this.state.user) {
+		// 	const email = this.state.user.email;
+		// 	if (isAdmin(email)) {
+		// 		this.setState({
+		// 			admin: true
+		// 		});
+		// 	}
+		// }
 	}
 
 	setSubdiseases = (diseases, index) => {
@@ -96,7 +115,6 @@ class Diseases extends React.Component {
 	};
 
 	render() {
-		console.log(this.state.filteredData);
 		const html = this.state.filteredData.map((x, key) => {
 			return <Card key={key} data={x} history={this.props.history} />;
 		});
@@ -130,26 +148,33 @@ class Diseases extends React.Component {
 						<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mt-5 mx-40">
 							<div className="provide-card-row">{html}</div>
 						</div>
-						<div style={{ textAlign: 'center' }} className="btn-group">
-							<span
-								className="btn btn-primary btn-sm"
-								onClick={() => this.onAddSubdisease(this.state.disease[this.state.activeIndex]._id)}
+						{this.state.admin ? (
+							<div
+								style={{
+									textAlign: 'center'
+								}}
+								className="btn-group"
 							>
-								Add
-							</span>
-							<span
-								className="btn btn-info btn-sm"
-								onClick={() => this.onUpdateDisease(this.state.disease[this.state.activeIndex])}
-							>
-								Update
-							</span>
-							<span
-								className="btn btn-danger btn-sm"
-								onClick={() => this.onDeleteDisease(this.state.disease[this.state.activeIndex]._id)}
-							>
-								Delete
-							</span>
-						</div>
+								<span
+									className="btn btn-primary btn-sm"
+									onClick={() => this.onAddSubdisease(this.state.disease[this.state.activeIndex]._id)}
+								>
+									Add
+								</span>
+								<span
+									className="btn btn-info btn-sm"
+									onClick={() => this.onUpdateDisease(this.state.disease[this.state.activeIndex])}
+								>
+									Update
+								</span>
+								<span
+									className="btn btn-danger btn-sm"
+									onClick={() => this.onDeleteDisease(this.state.disease[this.state.activeIndex]._id)}
+								>
+									Delete
+								</span>
+							</div>
+						) : null}
 					</div>
 				</div>
 			</div>
