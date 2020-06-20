@@ -5,8 +5,28 @@ import CardLayout from '../WhatWeDo';
 import logo from '../../Images/logo.svg';
 import Testimonial from '../ContactUs/Testimonial';
 import Testimonialdata from '../../Data/Testimonial_data';
+import { subscribe } from '../../Api/Subscribe';
 
 class Home extends Component {
+	state = {
+		email: ''
+	};
+	onSubscribe = (e) => {
+		e.preventDefault();
+		subscribe(this.state).then((res) => {
+			if (res.status === 200) {
+				this.setState({
+					email: ''
+				});
+			}
+		});
+	};
+
+	onChange = (e) => {
+		this.setState({
+			email: e.target.value
+		});
+	};
 	render() {
 		return (
 			<div>
@@ -33,14 +53,11 @@ class Home extends Component {
 						</div>
 					</div>
 				</div>
-
 				<CardLayout />
-
 				<div>
 					<h4 className="text-center mb-4 mt-5">What people say about our platform</h4>
 					<Testimonial slides={Testimonialdata} />
 				</div>
-
 				<div className="sta row">
 					<div className="col-md-3">
 						<div className="card shadow p-3 mb-5 bg-white rounded">
@@ -82,6 +99,27 @@ class Home extends Component {
 						</button>
 					</Link>
 				</div>
+
+				<form className="container form-inline" onSubmit={this.onSubscribe}>
+					<div className="subscribe-div">
+						<label class="sr-only" for="inlineFormInputName2">
+							Name
+						</label>
+						<input
+							type="email"
+							required-pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+							value={this.state.email}
+							onChange={this.onChange}
+							class="form-control"
+							id="inlineFormInputName2"
+							placeholder="Email"
+						/>
+						{/* <p></p> */}
+						<button type="submit" class="btn btn-outline-primary">
+							Subscribe
+						</button>
+					</div>
+				</form>
 			</div>
 		);
 	}
