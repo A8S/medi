@@ -101,3 +101,76 @@
 .ll {
 	cursor: pointer;
 }
+
+.makeitflex{
+    display: inline-flex;
+    width: 45%;
+  }
+
+  .scroll-y {
+    overflow-y: auto;
+    height: 28rem;
+  }
+
+  /* .flex-container{
+    width: 50%;
+  } */
+
+  
+
+  .cursor-pointer{
+    cursor: pointer;
+  }
+
+  .card-body{
+    padding: 10px;
+  }
+
+  .act{
+    background-color: blue;
+    /* color: white; */
+  }
+
+  .act > strong {
+    color: white;
+  }
+
+.searchbox{
+  padding-left: 60%;
+  padding-right: 2%;
+}
+
+.form-inline{
+  padding-top: 5px;
+}
+
+@media screen and (max-width: 500px){
+  .makeitflex{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 980px){
+  .searchbox{
+    padding-left: 40%;
+  }
+}
+
+
+@media screen and (max-width: 800px){
+  .searchbox{
+    padding-left: 30%;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .searchbox{
+    padding-left: 20%;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .searchbox{
+    padding-left: 0;
+  }
+}
