@@ -76,10 +76,11 @@ class EditProfile extends React.Component {
 		// this.setState({ [name]: event.target.value });
 		this.setState({ error: '' }); // empty the error on handle change
 		const value = name === 'photo' ? event.target.files[0] : event.target.value; // check photo in name then grab the files
-
+		console.log(value);
 		const fileSize = name === 'photo' ? event.target.files[0].size : 0;
 		this.userData.set(name, value);
 		this.setState({ [name]: value, fileSize });
+		console.log(this.state);
 	};
 
 	// clickSubmit = event => {

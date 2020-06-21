@@ -60,10 +60,10 @@ const MainRouter = () => (
 				)}
 			/>
 			<Route exact path="/subdisease/:sdid" component={SubdiseaseDetail} />
-			<Route exact path="/add_disease" component={AddDisease} />
-			<Route exact path="/add_subdisease/:dId" component={AddSubdisease} />
-			<Route exact path="/update_disease/:dId" component={UpdateDisease} />
-			<Route exact path="/update_subdisease/:sdId" component={UpdateSubdisease} />
+			<PrivateRoute exact path="/add_disease" component={AddDisease} />
+			<PrivateRoute exact path="/add_subdisease/:dId" component={AddSubdisease} />
+			<PrivateRoute exact path="/update_disease/:dId" component={UpdateDisease} />
+			<PrivateRoute exact path="/update_subdisease/:sdId" component={UpdateSubdisease} />
 			{/* <Route exact path="/disease/:diseasename" component={DiseaseDetail} /> */}
 			<Route exact path="/aboutus" component={AboutUs} />
 			<Route exact path="/contactus" component={ContactUs} />

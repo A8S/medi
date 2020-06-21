@@ -3,15 +3,25 @@ import './style.css';
 import Posts from '../Posts/Posts';
 import { getSubdisease, deleteSubdisease } from '../../Api/Subdisease';
 import { clientUrl } from '../../variables';
+import { isAuthenticated } from '../../Api';
 
 import { Accordion, Card, Button, Tabs, Tab, Container, Table } from 'react-bootstrap';
 
 class SubdiseaseDetail extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+			admin: false,
+		};
 	}
 	componentDidMount() {
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true,
+				});
+			}
+		}
 		if (!this.state.data) {
 			console.log(this.props.match.params);
 			getSubdisease(this.props.match.params.sdid).then(data => {

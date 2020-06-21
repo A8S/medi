@@ -16,6 +16,7 @@ import Cancer from '../../Images/Diseases/1.png';
 import './style.css';
 import { getDiseases, deleteDisease, updateDisease } from '../../Api/Disease';
 import { getSubdisease } from '../../Api/Subdisease';
+import { isAuthenticated } from '../../Api';
 
 import { Container } from 'react-bootstrap';
 
@@ -30,10 +31,18 @@ class Diseases extends React.Component {
 			activeIndex: 0,
 			subdiseases: [],
 			user: null,
+			admin: false,
 		};
 	}
 
 	componentDidMount() {
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true,
+				});
+			}
+		}
 		//	this.setState({ user: isAuthenticated().user });
 		console.log('mounted');
 		getDiseases().then(diseases => {
@@ -140,7 +149,13 @@ class Diseases extends React.Component {
 					<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mx-40 card-container">
 						<div className="provide-card-row">{html}</div>
 					</div>
-					{/* <div style={{ textAlign: 'center' }} className="btn-group">
+					{this.state.admin ? (
+						<div
+							style={{
+								textAlign: 'center',
+							}}
+							className="btn-group"
+						>
 							<span
 								className="btn btn-primary btn-sm"
 								onClick={() =>
@@ -169,7 +184,8 @@ class Diseases extends React.Component {
 							>
 								Delete
 							</span>
-						</div> */}
+						</div>
+					) : null}
 				</div>
 			</div>
 		);

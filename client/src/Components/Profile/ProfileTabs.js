@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import DefaultProfile from '../../Images/avatar.png';
 import Tabs from '../Settings/Tabs';
+import { serverUrl } from '../variables';
 
 class ProfileTabs extends Component {
 	render() {
@@ -30,9 +31,7 @@ class ProfileTabs extends Component {
 											height="30px"
 											width="30px"
 											onError={i => (i.target.src = `${DefaultProfile}`)}
-											src={`https://medical-umbrella.herokuapp.com/api/user/photo/${
-												person._id
-											}`}
+											src={`${serverUrl}/api/user/photo/${person._id}`}
 											alt={person.name}
 										/>
 										<div>
@@ -58,9 +57,7 @@ class ProfileTabs extends Component {
 											height="30px"
 											width="30px"
 											onError={i => (i.target.src = `${DefaultProfile}`)}
-											src={`https://medical-umbrella.herokuapp.com/api/user/photo/${
-												person._id
-											}`}
+											src={`${serverUrl}/api/user/photo/${person._id}`}
 											alt={person.name}
 										/>
 										<div>
