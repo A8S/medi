@@ -88,12 +88,14 @@ class SinglePost extends Component {
 
 		return (
 			<div className="container mb-5">
-				<Link to="/posts" className="btn btn-raised btn-primary my-3 mt-5">
+				<br/>
+				<Link to="/posts">
 					<span>
 						<i className="fa fa-chevron-left mr-4" />
 					</span>
 					Back to posts
 				</Link>
+				<br/> <br/>
 				<div className="row">
 					<div className="col-md-8">
 						<h2>{post.title}</h2>{' '}
@@ -173,41 +175,48 @@ class SinglePost extends Component {
 					<span className="badge badge-secondary">Food</span>{' '}
 					<span className="badge badge-secondary">Ipsum</span>
 				</p> */}
-				<div className="row">
-					<div className="col-md-12">
-						<h5>Summary </h5>
+				<div className="row mb-2">
+					<div className="col-md-3">
+						<strong><h5>Summary </h5></strong>
 					</div>
-					<div className="col-md-12">
+					<div className="col-md-9">
 						<p>{post.description}</p>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-md-12">
+				<div className="row mb-2">
+					<div className="col-md-3">
 						<h5>Treatment Taken </h5>
 					</div>
-					<div className="col-md-12">
+					<div className="col-md-9">
 						<p>{post.treatmentTaken}</p>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-md-12">
-						<h5>Detailed Description</h5>
+				<div className="row mb-2">
+					<div className="col-md-3">
+					<h5>Detailed Description</h5>
 					</div>
-					<div className="col-md-12">
+					<div className="col-md-9">
 						<p>{post.body}</p>
 					</div>
 				</div>
-				<img
-					src={`https://medical-umbrella.herokuapp.com/api/post/photo/${post._id}`}
-					alt={post.title}
-					onError={i => (i.target.src = `${DefaultPost}`)}
-					className="img-thunbnail mb-3"
-					style={{
-						height: '300px',
-						width: '100%',
-						objectFit: 'cover',
-					}}
-				/>
+				<div className="row mb-2">
+					<div className="col-md-3">
+					<h5>Attachments</h5>
+					</div>
+					<div className="col-md-9">
+						<img
+							src={`https://medical-umbrella.herokuapp.com/api/post/photo/${post._id}`}
+							alt={post.title}
+							onError={i => (i.target.src = `${DefaultPost}`)}
+							className="img-thunbnail mb-3"
+							style={{
+								height: '300px',
+								width: '100%',
+								objectFit: 'cover',
+							}}
+						/>
+					</div>
+				</div>
 				{/* {like ? (
 					<h3 onClick={this.likeToggle}>
 						<i
