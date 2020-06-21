@@ -1,18 +1,31 @@
 import React from 'react';
 import { updateDisease } from '../../Api/Disease';
+import { isAuthenticated } from '../../Api';
 
 class UpdateDisease extends React.Component {
 	state = {
-		title: this.props.history.location.state.title
+		title: this.props.history.location.state.title,
+		admin: false,
 	};
 
-	handleTitleChange = (e) => {
+	componentDidMount() {
+		// this.setState({ user: isAuthenticated().user });
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true,
+				});
+			}
+		}
+	}
+
+	handleTitleChange = e => {
 		this.setState({
-			title: e.currentTarget.value
+			title: e.currentTarget.value,
 		});
 	};
 
-	handleSubmit = async (e) => {
+	handleSubmit = async e => {
 		e.preventDefault();
 		const data = new FormData(e.currentTarget);
 		var object = {};

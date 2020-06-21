@@ -1,7 +1,7 @@
-const Post = require("../models/Post");
-const formidable = require("formidable"); // for handling file uploads
-const fs = require("fs"); // file system
-const _ = require("lodash");
+const Post = require('../models/Post');
+const formidable = require('formidable'); // for handling file uploads
+const fs = require('fs'); // file system
+const _ = require('lodash');
 
 // exports.getPost = (req, res) => {
 //     res.json({
@@ -31,11 +31,11 @@ const _ = require("lodash");
 
 exports.postById = (req, res, next, id) => {
   Post.findById(id)
-    .populate("postedBy", "_id name role")
+    .populate('postedBy', '_id name role')
     .exec((err, post) => {
       if (err || !post) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
       req.post = post;
@@ -63,24 +63,24 @@ exports.getPosts = async (req, res) => {
   const perPage = 7;
   let totalItems;
 
-   const posts = await Post.find()
-      // countDocuments() gives you total count of posts
-      .countDocuments()
-      .then(count => {
-          totalItems = count;
-          return Post.find()
-              .skip((currentPage - 1) * perPage)
-              .populate("comments", "text created")
-              .populate("comments.postedBy", "_id name")
-              .populate("postedBy", "_id name")
-              .sort({ date: -1 })
-              .limit(perPage)
-              .select("_id title body likes");
-      })
-      .then(posts => {
-          res.status(200).json(posts);
-      })
-      .catch(err => console.log(err));
+  const posts = await Post.find()
+    // countDocuments() gives you total count of posts
+    .countDocuments()
+    .then((count) => {
+      totalItems = count;
+      return Post.find()
+        .skip((currentPage - 1) * perPage)
+        .populate('comments', 'text created')
+        .populate('comments.postedBy', '_id name')
+        .populate('postedBy', '_id name')
+        .sort({ date: -1 })
+        .limit(perPage)
+        .select('_id title body likes created');
+    })
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((err) => console.log(err));
 };
 
 // to test this method we need to enter x-www-form-urlencoded option in postman
@@ -91,7 +91,7 @@ exports.createPost = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Image could not be uploaded"
+        error: 'Image could not be uploaded',
       });
     }
     let post = new Post(fields); // so post will be there with all the fields coming
@@ -108,7 +108,7 @@ exports.createPost = (req, res, next) => {
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
       res.json(result);
@@ -119,13 +119,13 @@ exports.createPost = (req, res, next) => {
 exports.postsByUser = (req, res) => {
   Post.find({ postedBy: req.profile._id })
     // .populate("postedBy", "_id name")
-    .populate("postedBy", "_id name role")
-    .select("title body likes")
-    .sort("_created")
+    .populate('postedBy', '_id name role')
+    .select('title body likes')
+    .sort('_created')
     .exec((err, posts) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
       res.json(posts);
@@ -146,15 +146,15 @@ exports.postsByUser = (req, res) => {
 
 exports.isPoster = (req, res, next) => {
   let sameUser = req.post && req.auth && req.post.postedBy._id == req.auth._id;
-  let adminUser = req.post && req.auth && req.post.auth.role === "admin";
+  let adminUser = req.post && req.auth && req.post.auth.role === 'admin';
   let isPoster = sameUser || adminUser;
 
-  console.log("req.post ", req.post, " req.auth ", req.auth);
-  console.log("SAMEUSER: ", sameUser, " ADMINUSER: ", adminUser);
+  console.log('req.post ', req.post, ' req.auth ', req.auth);
+  console.log('SAMEUSER: ', sameUser, ' ADMINUSER: ', adminUser);
 
   if (!isPoster) {
     return res.status(403).json({
-      error: "User is not authorized"
+      error: 'User is not authorized',
     });
   }
   next();
@@ -180,7 +180,7 @@ exports.updatePost = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Photo could not be uploaded"
+        error: 'Photo could not be uploaded',
       });
     }
     // save post
@@ -196,7 +196,7 @@ exports.updatePost = (req, res, next) => {
     post.save((err, result) => {
       if (err) {
         return res.status(400).json({
-          error: err
+          error: err,
         });
       }
       res.json(posts);
@@ -209,18 +209,18 @@ exports.deletePost = (req, res) => {
   post.remove((err, post) => {
     if (err) {
       return res.status(400).json({
-        error: err
+        error: err,
       });
     }
     res.json({
-      message: "Post deleted successfully"
+      message: 'Post deleted successfully',
     });
   });
 };
 
 exports.photo = (req, res, next) => {
   if (req.post.photo.data) {
-    res.set(("Content-Type", req.post.photo.contentType));
+    res.set(('Content-Type', req.post.photo.contentType));
     // console.log("PROFILE",req.post);
     return res.send(req.post.photo.data);
   }
@@ -233,33 +233,32 @@ exports.singlePost = (req, res) => {
 
 exports.like = (req, res) => {
   Post.findByIdAndUpdate(
-      req.body.postId,
-      { $push: { likes: req.body.userId } },
-      { new: true }
+    req.body.postId,
+    { $push: { likes: req.body.userId } },
+    { new: true }
   ).exec((err, result) => {
-      if (err) {
-          return res.status(400).json({
-              error: err
-          });
-      } else {
-          res.json(result);
-      }
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    } else {
+      res.json(result);
+    }
   });
 };
 
 exports.unlike = (req, res) => {
   Post.findByIdAndUpdate(
-      req.body.postId,
-      { $pull: { likes: req.body.userId } },
-      { new: true }
+    req.body.postId,
+    { $pull: { likes: req.body.userId } },
+    { new: true }
   ).exec((err, result) => {
-      if (err) {
-          return res.status(400).json({
-              error: err
-          });
-      } else {
-          res.json(result);
-      }
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    } else {
+      res.json(result);
+    }
   });
 };
-

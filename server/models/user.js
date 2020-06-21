@@ -1,48 +1,47 @@
-const mongoose = require("mongoose");
-const uuidv1 = require("uuid/v1");
-const crypto = require("crypto");
+const mongoose = require('mongoose');
+const uuidv1 = require('uuid/v1');
+const crypto = require('crypto');
 const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   username: {
-      type: String,
-      trim: true,
-      required: true
+    type: String,
+    trim: true,
   },
   name: {
     type: String,
     trim: true,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     trim: true,
-    required: true
+    required: true,
   },
   hashed_password: {
     type: String,
-    required: true
+    required: true,
   },
   salt: String,
   created: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updated: Date,
   photo: {
     data: Buffer,
-    contentType: String
+    contentType: String,
   },
   about: {
     type: String,
-    trim: true
+    trim: true,
   },
-  following: [{ type: ObjectId, ref: "User" }],
-  followers: [{ type: ObjectId, ref: "User" }],
+  following: [{ type: ObjectId, ref: 'User' }],
+  followers: [{ type: ObjectId, ref: 'User' }],
   role: {
     type: String,
-    default: "subscriber"
-  }
+    default: 'subscriber',
+  },
 });
 
 // When a single user is retrived from the backend, we want the user object to include the names and IDs
@@ -58,8 +57,8 @@ const userSchema = new mongoose.Schema({
 
 // virtual field
 userSchema
-  .virtual("password")
-  .set(function(password) {
+  .virtual('password')
+  .set(function (password) {
     // create temporary variable called _password
     this._password = password;
     // generate a timestamp
@@ -67,27 +66,27 @@ userSchema
     // encryptPassword()
     this.hashed_password = this.encryptPassword(password);
   })
-  .get(function() {
+  .get(function () {
     return this._password;
   });
 
 // methods
 userSchema.methods = {
-  authenticate: function(plainText) {
+  authenticate: function (plainText) {
     return this.encryptPassword(plainText) === this.hashed_password;
   },
 
-  encryptPassword: function(password) {
-    if (!password) return "";
+  encryptPassword: function (password) {
+    if (!password) return '';
     try {
       return crypto
-        .createHmac("sha1", this.salt)
+        .createHmac('sha1', this.salt)
         .update(password)
-        .digest("hex");
+        .digest('hex');
     } catch (err) {
-      return "";
+      return '';
     }
-  }
+  },
 };
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);

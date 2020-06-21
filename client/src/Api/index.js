@@ -1,5 +1,7 @@
+import { serverUrl } from '../variables';
+
 export const signup = user => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signup`, {
+	return fetch(`${serverUrl}/api/signup`, {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -14,7 +16,7 @@ export const signup = user => {
 };
 
 export const signin = user => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signin`, {
+	return fetch(`${serverUrl}/api/signin`, {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -46,7 +48,7 @@ export const setName = (name, next) => {
 export const signout = next => {
 	if (typeof window !== 'undefined') localStorage.removeItem('jwt');
 	next();
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signout`, {
+	return fetch(`${serverUrl}/api/signout`, {
 		method: 'GET',
 	})
 		.then(response => {
