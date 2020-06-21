@@ -49,7 +49,16 @@ const MainRouter = () => (
 			<Route exact path="/posts" component={ViewPosts} />
 			<Route exact path="/post/:postId" component={SinglePost} />
 			<Route exact path="/pathy" component={Pathy} />
-			<Route exact path="/diseases" component={Diseases} />
+			<Route
+				exact
+				path="/diseases"
+				render={() => (
+					<div>
+						<Diseases />
+						<Footer />
+					</div>
+				)}
+			/>
 			<Route exact path="/subdisease/:sdid" component={SubdiseaseDetail} />
 			<Route exact path="/add_disease" component={AddDisease} />
 			<Route exact path="/add_subdisease/:dId" component={AddSubdisease} />

@@ -3,6 +3,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactTags from 'react-tag-autocomplete';
+import { Button } from 'react-bootstrap';
+
+import './style.css';
 
 class Autocomplete extends Component {
 	constructor(props) {
@@ -10,7 +13,7 @@ class Autocomplete extends Component {
 		this.myRef = React.createRef();
 		this.state = {
 			suggestions: [],
-			tags: []
+			tags: [],
 		};
 	}
 
@@ -19,11 +22,11 @@ class Autocomplete extends Component {
 	componentDidUpdate() {
 		if (this.state.suggestions.length !== this.props.suggestions.length) {
 			let sug = [];
-			this.props.suggestions.forEach((suggestion) => {
+			this.props.suggestions.forEach(suggestion => {
 				sug.push({ id: suggestion._id, name: suggestion.title });
 			});
 			this.setState({
-				suggestions: sug
+				suggestions: sug,
 			});
 		}
 	}
@@ -45,9 +48,9 @@ class Autocomplete extends Component {
 			this.props.filteredData(suggestions);
 			return;
 		}
-		const sugs = suggestions.filter((sug) => {
+		const sugs = suggestions.filter(sug => {
 			let s = sug;
-			return this.state.tags.find((tag) => {
+			return this.state.tags.find(tag => {
 				return s.title === tag.name;
 			});
 		});
@@ -57,8 +60,9 @@ class Autocomplete extends Component {
 
 	render() {
 		return (
-			<Fragment>
+			<div className="row">
 				<ReactTags
+					className="autosuggestionSearchField col"
 					tags={this.state.tags}
 					suggestions={this.state.suggestions}
 					handleDelete={this.handleDelete.bind(this)}
@@ -67,10 +71,14 @@ class Autocomplete extends Component {
 					allowNew={true}
 					noSuggestionsText="noSuggestions"
 				/>
-				<span className="btn btn-primary btn-sm" onClick={this.onSearch}>
+				<Button
+					className="col"
+					style={{ height: '35px', marginLeft: '5px' }}
+					onClick={this.onSearch}
+				>
 					Search
-				</span>
-			</Fragment>
+				</Button>
+			</div>
 		);
 	}
 }

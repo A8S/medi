@@ -16,6 +16,9 @@ import Cancer from '../../Images/Diseases/1.png';
 import './style.css';
 import { getDiseases, deleteDisease, updateDisease } from '../../Api/Disease';
 import { getSubdisease } from '../../Api/Subdisease';
+
+import { Container } from 'react-bootstrap';
+
 import Footer from '../Footer';
 class Diseases extends React.Component {
 	constructor(props) {
@@ -101,39 +104,43 @@ class Diseases extends React.Component {
 			return <Card key={key} data={x} history={this.props.history} />;
 		});
 		return (
-			<div className="container-fluid">
-				<div className="mt-2">
-					<div className="nav flex-column SideBar">
-						<ul className="list-group">
-							{this.state.disease.map((disease, index) => {
-								return (
-									<li
-										className={`list-group-item ll ${
-											this.state.activeIndex === index ? 'active' : null
-										}`}
-										key={index}
-										onClick={() => this.onDiseaseClick(index)}
-									>
-										{disease.title}
-									</li>
-								);
-							})}
-						</ul>
+			<div className="container-fluid  disease-container">
+				<h3 style={{ paddingTop: '5vh', fontSize: '40px' }}>Categories</h3>
+
+				<div
+					className="nav flex-column SideBar"
+					style={{ border: '2px solid rgba(0,0,0,0.25)' }}
+				>
+					<ul className="list-group">
+						{this.state.disease.map((disease, index) => {
+							return (
+								<li
+									className={`list-group-item ll ${
+										this.state.activeIndex === index ? 'active' : null
+									}`}
+									key={index}
+									onClick={() => this.onDiseaseClick(index)}
+								>
+									{disease.title}
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+				<div className="main-div">
+					<div className="search">
+						<Autocomplete
+							filteredData={this.filteredData}
+							suggestions={this.state.subdiseases}
+						/>
 					</div>
-					<div className="main-div">
-						<div>
-							<Autocomplete
-								filteredData={this.filteredData}
-								suggestions={this.state.subdiseases}
-							/>
-						</div>
-						<button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
+					{/* <button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
 							Create Disease
-						</button>
-						<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mt-5 mx-40">
-							<div className="provide-card-row">{html}</div>
-						</div>
-						<div style={{ textAlign: 'center' }} className="btn-group">
+						</button> */}
+					<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mx-40 card-container">
+						<div className="provide-card-row">{html}</div>
+					</div>
+					{/* <div style={{ textAlign: 'center' }} className="btn-group">
 							<span
 								className="btn btn-primary btn-sm"
 								onClick={() =>
@@ -162,8 +169,7 @@ class Diseases extends React.Component {
 							>
 								Delete
 							</span>
-						</div>
-					</div>
+						</div> */}
 				</div>
 			</div>
 		);

@@ -7,7 +7,11 @@ import { signout, isAuthenticated } from '../../Api';
 import './style.css';
 
 const isActive = (history, path) => {
-	if (history.location.pathname === path) return { color: 'white' };
+	if (history.location.pathname === path) {
+		return { color: 'white' };
+	} else {
+		return { color: '#afafaf' };
+	}
 };
 
 class NavDropdown extends React.Component {

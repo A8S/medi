@@ -16,7 +16,7 @@ const Card = ({ data, history }) => {
 	}, []);
 
 	return (
-		<div className="card makeitflex m-2 mr-0">
+		<div className="card-disease makeitflex m-0 mr-0">
 			<div
 				className="card-body"
 				style={{

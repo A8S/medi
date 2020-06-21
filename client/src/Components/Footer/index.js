@@ -24,7 +24,10 @@ class Footer extends Component {
 		return (
 			<div>
 				{
-					<footer className="bg-dark text-white mt-4">
+					<footer
+						className="bg-dark text-white mt-4"
+						style={{ height: '30vh', zIndex: '4', position: 'relative' }}
+					>
 						<div className="container text-center text-md-left">
 							<div className="row">
 								<hr className="clearfix w-100 d-md-none" />
@@ -140,16 +143,16 @@ class Footer extends Component {
 									</ul>
 								</div>
 
-								<div className="col-md-3">
+								{/* <div className="col-md-3">
 									<h5 className=" mt-3 mb-4 heading">
 										Register to our <br /> Newsletter
 									</h5>
 									{queryForm()}
-								</div>
+								</div> */}
 							</div>
 						</div>
 
-						<div className="footer-copyright text-center py-3 heading container">
+						<div className="footer-copyright text-center heading container">
 							<p>© 2018 Copyright</p>
 							<p>
 								{' '}

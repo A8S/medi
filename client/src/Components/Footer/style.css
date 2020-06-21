@@ -28,8 +28,9 @@
 	padding-left: 22px !important;
 }
 .footer-copyright {
-	margin-top: -114px;
+	/* margin-top: -114px; */
 	margin-left: 85px;
+	padding-bottom: 10px;
 }
 .abc {
 	margin-top: -23px;
