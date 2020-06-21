@@ -15,17 +15,17 @@ class Signup extends Component {
 			email: '',
 			password: '',
 			error: '',
-			open: false //  for info message display
+			open: false, //  for info message display
 		};
 	}
 
-	handleChange = (name) => (event) => {
+	handleChange = name => event => {
 		// using name as placeholder argument, can be anything
 		this.setState({ error: '' }); // when handle change remove the old error so they are not displayed
 		this.setState({ [name]: event.target.value }); // one event for all the changes
 	};
 
-	clickSubmit = (event) => {
+	clickSubmit = event => {
 		// on click submit takes the event
 		event.preventDefault(); // to not reload page without making any changes
 		const { name, email, password } = this.state;
@@ -33,11 +33,11 @@ class Signup extends Component {
 			// create new user with these parameters
 			name,
 			email,
-			password
+			password,
 		};
 		// console.log(user);
 		// this.signup(user).then(data =>{
-		signup(user).then((data) => {
+		signup(user).then(data => {
 			if (data.error) this.setState({ error: data.error });
 			else
 				this.setState({
@@ -45,7 +45,7 @@ class Signup extends Component {
 					name: '',
 					email: '',
 					password: '',
-					open: true
+					open: true,
 				});
 		});
 	};
@@ -66,7 +66,10 @@ class Signup extends Component {
 									{error}
 								</div>
 
-								<div className="alert alert-info" style={{ display: open ? '' : 'none' }}>
+								<div
+									className="alert alert-info"
+									style={{ display: open ? '' : 'none' }}
+								>
 									New account is successfully created. Please Sign In.
 								</div>
 								<form className="form-signin">
@@ -123,7 +126,9 @@ class Signup extends Component {
 									<hr className="my-4" />
 									<p className="text-center">
 										Already have an account?
-										<a href="/signin">Sign In</a>
+										<a href="/signin">
+											Sign In
+										</a>
 									</p>
 								</form>
 							</div>

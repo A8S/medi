@@ -10,6 +10,7 @@ import { list } from '../../Api/User';
 import DefaultProfile from '../../Images/avatar.png';
 // import FollowProfileButton from './FollowProfileButton';
 import './style.css';
+import {serverUrl} from '../variables';
 
 class Users extends Component {
 	constructor() {
@@ -40,7 +41,7 @@ class Users extends Component {
 						{/* <div className="col-sm-12 row"> */}
 						<div className="text-center my-3">
 							<img
-								src={`https://medical-umbrella.herokuapp.com/api/user/photo/${
+								src={`${serverUrl}/api/user/photo/${
 									user._id
 								}`}
 								onError={i => (i.target.src = `${DefaultProfile}`)}

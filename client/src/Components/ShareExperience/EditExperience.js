@@ -7,6 +7,8 @@ import { Redirect } from 'react-router-dom';
 import { singlePost, update } from '../../Api/Post';
 import { isAuthenticated } from '../../Api';
 import DefaultPost from '../../Images/mountains.jpg';
+import { serverUrl } from '../variables';
+
 
 class EditPost extends Component {
 	constructor() {
@@ -168,7 +170,7 @@ class EditPost extends Component {
 				<img
 					style={{ height: '200px', width: 'auto' }}
 					className="img-thumbnail"
-					src={`https://medical-umbrella.herokuapp.com/api/post/photo/${id}?${new Date().getTime()}`}
+					src={`${serverUrl}/api/post/photo/${id}?${new Date().getTime()}`}
 					onError={i => (i.target.src = `${DefaultPost}`)}
 					alt={title}
 				/>

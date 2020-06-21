@@ -1,13 +1,3 @@
-/* eslint-disable react/no-unused-state */
-/* eslint-disable no-undef */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable import/named */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable no-unused-vars */
-
-/* https://dev.to/sage911/how-to-write-a-search-component-with-suggestions-in-react-d20 */
 import React from 'react';
 // import data from '../../Data/DiseasesData';
 import Card from './Card';
@@ -27,7 +17,7 @@ class Diseases extends React.Component {
 			filteredData: [],
 			activeIndex: 0,
 			subdiseases: [],
-			admin: false
+			admin: false,
 		};
 	}
 
@@ -36,14 +26,14 @@ class Diseases extends React.Component {
 		if (isAuthenticated()) {
 			if (isAuthenticated().user.role === 'admin') {
 				this.setState({
-					admin: true
+					admin: true,
 				});
 			}
 		}
 		console.log('mounted');
-		getDiseases().then((diseases) => {
+		getDiseases().then(diseases => {
 			this.setState({
-				disease: diseases
+				disease: diseases,
 			});
 			this.setSubdiseases(diseases, 0);
 		});
@@ -63,13 +53,13 @@ class Diseases extends React.Component {
 	setSubdiseases = (diseases, index) => {
 		this.setState({
 			subdiseases: [],
-			filteredData: []
+			filteredData: [],
 		});
 		for (let i = 0; i < diseases[index].subdiseases.length; i++) {
-			getSubdisease(diseases[index].subdiseases[i]).then((sub) => {
+			getSubdisease(diseases[index].subdiseases[i]).then(sub => {
 				this.setState({
-					subdiseases: [ ...this.state.subdiseases, sub ],
-					filteredData: [ ...this.state.filteredData, sub ]
+					subdiseases: [...this.state.subdiseases, sub],
+					filteredData: [...this.state.filteredData, sub],
 				});
 			});
 		}
@@ -82,23 +72,23 @@ class Diseases extends React.Component {
 	onAddDisease = () => {
 		this.props.history.push('/add_disease');
 	};
-	onAddSubdisease = (dId) => {
+	onAddSubdisease = dId => {
 		this.props.history.push(`/add_subdisease/${dId}`);
 	};
 
-	onUpdateDisease = (disease) => {
+	onUpdateDisease = disease => {
 		this.props.history.push(`/update_disease/${disease._id}`, disease);
 	};
 
-	onDeleteDisease = (dId) => {
-		deleteDisease(dId).then((data) => {
+	onDeleteDisease = dId => {
+		deleteDisease(dId).then(data => {
 			if (data.status === 200) {
 				this.setState({
-					activeIndex: 0
+					activeIndex: 0,
 				});
-				getDiseases().then((diseases) => {
+				getDiseases().then(diseases => {
 					this.setState({
-						disease: diseases
+						disease: diseases,
 					});
 					this.setSubdiseases(diseases, 0);
 				});
@@ -106,9 +96,9 @@ class Diseases extends React.Component {
 		});
 	};
 
-	onDiseaseClick = (i) => {
+	onDiseaseClick = i => {
 		this.setState({
-			activeIndex: i
+			activeIndex: i,
 		});
 
 		this.setSubdiseases(this.state.disease, i);
@@ -119,63 +109,78 @@ class Diseases extends React.Component {
 			return <Card key={key} data={x} history={this.props.history} />;
 		});
 		return (
-			<div className="container">
-				<div className="mt-2">
-					<div className="nav flex-column sideBar">
-						<ul className="list-group">
-							{this.state.disease.map((disease, index) => {
-								return (
-									<li
-										className={`list-group-item ll ${this.state.activeIndex === index
-											? 'active'
-											: null}`}
-										key={index}
-										onClick={() => this.onDiseaseClick(index)}
-									>
-										{disease.title}
-									</li>
-								);
-							})}
-						</ul>
+			<div className="container-fluid disease-container">
+				<h3 style={{ paddingTop: '5vh', fontSize: '40px' }}>Categories</h3>
+				<div
+					className="nav flex-column SideBar"
+					style={{ border: '2px solid rgba(0,0,0,0.25)' }}
+				>
+					<ul className="list-group">
+						{this.state.disease.map((disease, index) => {
+							return (
+								<li
+									className={`list-group-item ll ${
+										this.state.activeIndex === index ? 'active' : null
+									}`}
+									key={index}
+									onClick={() => this.onDiseaseClick(index)}
+								>
+									{disease.title}
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+				<div className="main-div">
+					<div className="search">
+						<Autocomplete
+							filteredData={this.filteredData}
+							suggestions={this.state.subdiseases}
+						/>
 					</div>
-					<div className="main-div">
-						<div>
-							<Autocomplete filteredData={this.filteredData} suggestions={this.state.subdiseases} />
-						</div>
-						<button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
-							Create Disease
-						</button>
-						<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mt-5 mx-40">
-							<div className="provide-card-row">{html}</div>
-						</div>
-						{this.state.admin ? (
-							<div
-								style={{
-									textAlign: 'center'
-								}}
-								className="btn-group"
+					<button className="btn btn-primary btn-raised" onClick={this.onAddDisease}>
+						Create Disease
+					</button>
+					<div className="col-xs-12 col-md-12 col-sm-12 col-xs-12 mt-5 mx-40 card-container">
+						<div className="provide-card-row">{html}</div>
+					</div>
+					{this.state.admin ? (
+						<div
+							style={{
+								textAlign: 'center',
+							}}
+							className="btn-group"
+						>
+							<span
+								className="btn btn-primary btn-sm"
+								onClick={() =>
+									this.onAddSubdisease(
+										this.state.disease[this.state.activeIndex]._id,
+									)
+								}
 							>
-								<span
-									className="btn btn-primary btn-sm"
-									onClick={() => this.onAddSubdisease(this.state.disease[this.state.activeIndex]._id)}
-								>
-									Add
-								</span>
-								<span
-									className="btn btn-info btn-sm"
-									onClick={() => this.onUpdateDisease(this.state.disease[this.state.activeIndex])}
-								>
-									Update
-								</span>
-								<span
-									className="btn btn-danger btn-sm"
-									onClick={() => this.onDeleteDisease(this.state.disease[this.state.activeIndex]._id)}
-								>
-									Delete
-								</span>
-							</div>
-						) : null}
-					</div>
+								Add
+							</span>
+							<span
+								className="btn btn-info btn-sm"
+								onClick={() =>
+									this.onUpdateDisease(this.state.disease[this.state.activeIndex])
+								}
+							>
+								Update
+							</span>
+							<span
+								className="btn btn-danger btn-sm"
+								onClick={() =>
+									this.onDeleteDisease(
+										this.state.disease[this.state.activeIndex]._id,
+									)
+								}
+							>
+								Delete
+							</span>
+						</div>
+					) : null}
 				</div>
 			</div>
 		);

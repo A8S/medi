@@ -1,29 +1,33 @@
-import { serverUrl } from '../variables';
+import {serverUrl} from '../variables';
 
-export const signup = (user) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signup`, {
-		method: 'POST',
-		body: user
-	})
-		.then((response) => {
-			return response.json();
-		})
-		.catch((err) => console.log(err));
-};
-
-export const signin = (user) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signin`, {
+export const signup = user => {
+	return fetch(`${serverUrl}/api/signup`, {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(user)
+		body: JSON.stringify(user),
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
+};
+
+export const signin = user => {
+	return fetch(`${serverUrl}/api/signin`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(user),
+	})
+		.then(response => {
+			return response.json();
+		})
+		.catch(err => console.log(err));
 };
 
 export const authenticate = (jwt, next) => {
@@ -41,17 +45,17 @@ export const setName = (name, next) => {
 	}
 };
 
-export const signout = (next) => {
+export const signout = next => {
 	if (typeof window !== 'undefined') localStorage.removeItem('jwt');
 	next();
-	return fetch(`https://medical-umbrella.herokuapp.com/api/signout`, {
-		method: 'GET'
+	return fetch(`${serverUrl}/api/signout`, {
+		method: 'GET',
 	})
-		.then((response) => {
+		.then(response => {
 			// console.log('signout', response);
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };
 
 export const isAuthenticated = () => {
