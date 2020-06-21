@@ -75,9 +75,10 @@ exports.getPosts = async (req, res) => {
               .populate("postedBy", "_id name")
               .sort({ date: -1 })
               .limit(perPage)
-              .select("_id title body likes");
+              .select("_id title body likes created");
       })
       .then(posts => {
+        console.log("cc",posts)
           res.status(200).json(posts);
       })
       .catch(err => console.log(err));

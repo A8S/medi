@@ -10,6 +10,7 @@ import DefaultProfile from '../../Images/avatar.png';
 import FollowProfileButton from '../Users/FollowProfileButton';
 import ProfileTabs from './ProfileTabs';
 import DeleteUser from '../Users/deleteUser';
+import {serverUrl} from '../variables';
 
 class Profile extends react.Component {
 	constructor() {
@@ -88,7 +89,7 @@ class Profile extends react.Component {
 		if (redirectToSignin) return <Redirect to="/signin" />;
 
 		const photoUrl = user._id
-			? `https://medical-umbrella.herokuapp.com/api/user/photo/${
+			? `${serverUrl}/api/user/photo/${
 					user._id
 			  }?${new Date().getTime()}`
 			: DefaultProfile;

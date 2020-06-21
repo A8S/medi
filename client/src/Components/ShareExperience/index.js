@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { isAuthenticated } from '../../Api';
 import { create } from '../../Api/Post';
 import loader from '../../Images/loader2.gif';
+import { serverUrl } from '../variables';
 
 class NewPost extends Component {
 	constructor() {

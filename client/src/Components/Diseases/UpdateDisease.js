@@ -1,10 +1,22 @@
 import React from 'react';
 import { updateDisease } from '../../Api/Disease';
+import { isAuthenticated } from '../../Api';
 
 class UpdateDisease extends React.Component {
 	state = {
 		title: this.props.history.location.state.title
 	};
+
+	componentDidMount() {
+		// this.setState({ user: isAuthenticated().user });
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true
+				});
+			}
+		}
+	}
 
 	handleTitleChange = (e) => {
 		this.setState({

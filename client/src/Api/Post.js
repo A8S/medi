@@ -1,6 +1,8 @@
+import {serverUrl} from '../variables';
+
 export const create = async (userId, token, post) => {
 	try {
-		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/post/new/${userId}`, {
+		const response = await fetch(`${serverUrl}/api/post/new/${userId}`, {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -27,7 +29,7 @@ export const create = async (userId, token, post) => {
 
 // with pagination
 export const list = (page) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/posts/?page=${page}`, {
+	return fetch(`${serverUrl}/api/posts/?page=${page}`, {
 		method: 'GET'
 	})
 		.then((response) => {
@@ -37,7 +39,7 @@ export const list = (page) => {
 };
 
 export const singlePost = (postId) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/post/${postId}`, {
+	return fetch(`${serverUrl}/api/post/${postId}`, {
 		method: 'GET'
 	})
 		.then((response) => {
@@ -48,7 +50,7 @@ export const singlePost = (postId) => {
 
 export const listByUser = async (userId, token) => {
 	try {
-		const response = await fetch(`https://medical-umbrella.herokuapp.com/api/posts/by/${userId}`, {
+		const response = await fetch(`${serverUrl}/api/posts/by/${userId}`, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -63,7 +65,7 @@ export const listByUser = async (userId, token) => {
 };
 
 export const remove = (postId, token) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/api/post/${postId}`, {
+	return fetch(`${serverUrl}/api/post/${postId}`, {
 		method: 'DELETE',
 		headers: {
 			Accept: 'application/json',
@@ -79,7 +81,7 @@ export const remove = (postId, token) => {
 
 export const update = (postId, token, post) => {
 	console.log(postId, token, post);
-	return fetch(`https://medical-umbrella.herokuapp.com/api/post/${postId}`, {
+	return fetch(`${serverUrl}/api/post/${postId}`, {
 		method: 'PUT',
 		headers: {
 			Accept: 'application/json',
@@ -94,7 +96,7 @@ export const update = (postId, token, post) => {
 };
 
 export const like = (userId, token, postId) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/post/like`, {
+	return fetch(`${serverUrl}/post/like`, {
 		method: 'PUT',
 		headers: {
 			Accept: 'application/json',
@@ -110,7 +112,7 @@ export const like = (userId, token, postId) => {
 };
 
 export const unlike = (userId, token, postId) => {
-	return fetch(`https://medical-umbrella.herokuapp.com/post/unlike`, {
+	return fetch(`${serverUrl}/post/unlike`, {
 		method: 'PUT',
 		headers: {
 			Accept: 'application/json',

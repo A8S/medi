@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { list } from '../../Api/Post';
+import { serverUrl } from '../variables';
 // import DefaultPost from '../../Images/mountains.jpg';
 
 class Posts extends React.Component {

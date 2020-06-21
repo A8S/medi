@@ -4,13 +4,23 @@ import Tabs from '../Settings/Tabs';
 import Posts from '../Posts/Posts';
 import { getSubdisease, deleteSubdisease } from '../../Api/Subdisease';
 import { clientUrl } from '../../variables';
+import { isAuthenticated } from '../../Api';
 
 class SubdiseaseDetail extends React.Component {
 	constructor() {
 		super();
-		this.state = {};
+		this.state = {
+			admin: false
+		};
 	}
 	componentDidMount() {
+		if (isAuthenticated()) {
+			if (isAuthenticated().user.role === 'admin') {
+				this.setState({
+					admin: true
+				});
+			}
+		}
 		if (!this.state.data) {
 			console.log(this.props.match.params);
 			getSubdisease(this.props.match.params.sdid).then((data) => {
@@ -211,56 +221,49 @@ class SubdiseaseDetail extends React.Component {
 					</span>
 					Books
 					<span>
-					<div className="col-md-2">
-						<h5>Books</h5>
-					</div>
-					<div className="col-md-10">
-						<p>
-							{this.state.data.books.map((book) => {
-								return <span>{book.name}</span>;
-							})}
-						</p>
-					</div>
+						<div className="col-md-2">
+							<h5>Books</h5>
+						</div>
+						<div className="col-md-10">
+							<p>
+								{this.state.data.books.map((book) => {
+									return <span>{book.name}</span>;
+								})}
+							</p>
+						</div>
 					</span>
 					References
 					<span>
-					<div className="col-md-2">
-						<h5>References</h5>
-					</div>
-					<div className="col-md-10">
-						<p>
-							{this.state.data.references.map((reference) => {
-								return (
-									<a target="_blank" href={reference.url}>
-										{reference.url}
-									</a>
-								);
-							})}
-						</p>
-					</div>
+						<div className="col-md-2">
+							<h5>References</h5>
+						</div>
+						<div className="col-md-10">
+							<p>
+								{this.state.data.references.map((reference) => {
+									return (
+										<a target="_blank" href={reference.url}>
+											{reference.url}
+										</a>
+									);
+								})}
+							</p>
+						</div>
 					</span>
-					
 				</Tabs>
-				<div style={{ textAlign: 'center', paddingBottom: '20px' }} className="btn-group">
-					<span className="btn btn-info btn-sm" onClick={() => this.onUpdateSubdisease()}>
-						Update
-					</span>
-					<span className="btn btn-danger btn-sm" onClick={() => this.onDeleteSubdisease()}>
-						Delete
-					</span>
-				</div>
-				<div className="row">
-				
-				</div>
-				<div className="row">
-					
-				</div>
+				{this.state.admin ? (
+					<div style={{ textAlign: 'center', paddingBottom: '20px' }} className="btn-group">
+						<span className="btn btn-info btn-sm" onClick={() => this.onUpdateSubdisease()}>
+							Update
+						</span>
+						<span className="btn btn-danger btn-sm" onClick={() => this.onDeleteSubdisease()}>
+							Delete
+						</span>
+					</div>
+				) : null}
 
 				<h2>Related Posts</h2>
 				<Posts />
-				
 			</div>
-			// <div>hgj</div>
 		);
 	}
 }
