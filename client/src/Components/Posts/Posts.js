@@ -44,14 +44,23 @@ class Posts extends React.Component {
 		this.loadPosts(this.state.page - number);
 	};
 
+	fun = number => {
+		if(this.state.page > number){
+			this.loadLess(this.state.page - number);
+		}
+		else if(this.state.page < number){
+			this.loadMore(number - this.state.page);
+		}
+	}
+
 	renderPosts = posts => {
 		let items = [];
 
 		for (let number = 1; number <= posts.length; number++) {
 			items.push(
-				<Pagination.Item key={number} active={number === this.state.pagepage}>
+				<Pagination.Item key={number} active={number === this.state.page} onClick={(e) => this.fun(number)}>
 					{number}
-				</Pagination.Item>,
+				</Pagination.Item>
 			);
 		}
 
@@ -60,10 +69,13 @@ class Posts extends React.Component {
 				<Table striped bordered hover>
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Username</th>
+							<th>Heading</th>
+							<th>Date Posted</th>
+							<th>Posted by</th>
+							<th>Disease</th>
+							<th>Likes</th>
+							<th>Description</th>
+							<th>Read more</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,18 +104,19 @@ class Posts extends React.Component {
 									on {new Date(post.created).toDateString()}
 								</p> */}
 									<td className="col-xs-8">
-										<span className="fa fa-clock-o" /> Posted by{' '}
-										<Link to={`${posterId}`}>{posterName} </Link>
-										on {new Date(post.created).toDateString()}
+									{new Date(post.created).toDateString()}
 									</td>
 									{/* <p>
 									<span className="badge badge-secondary">Food</span>{' '}
 									<span className="badge badge-secondary">Ipsum</span>
 								</p> */}
-
+									<td className="col-xs-8">
+										<Link to={`${posterId}`}>{posterName} </Link>
+										
+									</td>
 									{/* <p className="card-text">{post.body.substring(0, 100)}</p> */}
 									<td className="card-text" style={{ wordBreak: 'break-word' }}>
-										{post.body}
+										Cancer
 									</td>
 									{/* only some charaters are visible in the posts */}
 
@@ -111,11 +124,17 @@ class Posts extends React.Component {
 									Posted by <Link to={`${posterId}`}>{posterName} </Link>
 									on {new Date(post.created).toDateString()}
 								</p> */}
+									<td className="col-xs-8">
+										{14} 
+									</td>
+									<td className="card-text" style={{ wordBreak: 'break-word' }}>
+										{post.body} 
+									</td>
 
 									<td>
 										<Link
 											to={`/post/${post._id}`}
-											className="btn btn-raised btn-primary btn-sm"
+											
 										>
 											Read more
 										</Link>
@@ -125,7 +144,9 @@ class Posts extends React.Component {
 						})}
 					</tbody>
 				</Table>
+				<div className="center">
 				<Pagination>{items}</Pagination>
+				</div>
 			</div>
 		);
 	};
@@ -136,10 +157,13 @@ class Posts extends React.Component {
 			<div>
 				{' '}
 				{this.renderPosts(posts)}
+
+				<div className="left-right">
 				<Pagination>
 					{page > 1 ? <Pagination.Prev onClick={() => this.loadLess(1)} /> : ''}
 					{posts.length ? <Pagination.Next onClick={() => this.loadMore(1)} /> : ''}
 				</Pagination>
+				</div>
 				<h2 className="mt-5 mb-5">{!posts.length ? 'No more posts!' : ''}</h2>
 				{/* <h2 className="mt-5 mb-5">{!posts.length ? 'Loading...' : 'Recent Posts'}</h2> */}
 			</div>
