@@ -19,7 +19,7 @@ class ViewPosts extends React.Component {
 				<h2 className="mt-5">Posts</h2>
 				<p className="lead"> View all type of post like share experience, asking suggestions</p>
 				<div className="text-right">
-					<p className="btn btn-raised btn-success btn-sm postButton">
+					<p className="btn btn-outline-primary btn-sm postButton">
 						<Link
 							className="nav-link"
 							style={isActive(history, '/share_experience')}
