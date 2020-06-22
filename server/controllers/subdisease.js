@@ -97,8 +97,42 @@ exports.deleteSubdisease = (req, res) => {
 	});
 };
 
+exports.book = (req, res) => {
+	Subdisease.findByIdAndUpdate(
+		req.params.sdId,
+		{ $push: { bookmark: req.body.userId } },
+		{ new: true }
+	).exec((err, result) => {
+		if (err) {
+			return res.status(400).json({
+				error: err
+			});
+		} else {
+			res.json(result);
+		}
+	});
+  };
+  
+  
+  exports.unbook = (req, res) => {
+	Subdisease.findByIdAndUpdate(
+		req.params.sdId,
+		{ $pull: { bookmark: req.body.userId } },
+		{ new: true }
+	).exec((err, result) => {
+		if (err) {
+			return res.status(400).json({
+				error: err
+			});
+		} else {
+			res.json(result);
+		}
+	});
+  };
+
 function arrayRemove(arr, value) {
 	return arr.filter(function(ele) {
 		return ele != value;
 	});
 }
+

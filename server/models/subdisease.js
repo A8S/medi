@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 
 const subdiseaseSchema = new mongoose.Schema({
 	title: {
@@ -14,7 +15,7 @@ const subdiseaseSchema = new mongoose.Schema({
 		required: true
 	},
 	disease: {
-		type: mongoose.Schema.Types.ObjectId,
+		type:ObjectId,
 		ref: 'Disease'
 	},
 	allopathy: {

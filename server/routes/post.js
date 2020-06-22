@@ -24,8 +24,8 @@ const router = express.Router();
 router.get("/posts", getPosts);
 
 // like unlike
-router.put("/post/like", requireSignin, like);
-router.put("/post/unlike", requireSignin, unlike);
+router.put("/post/like", like);
+router.put("/post/unlike",  unlike);
 //tags
 router.post("/post/tags",tags);
 

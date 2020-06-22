@@ -4,7 +4,9 @@ const {
 	getSubdiseases,
 	createSubdisease,
 	updateSubdisease,
-	deleteSubdisease
+	deleteSubdisease,
+	book,
+	unbook
 } = require('../controllers/subdisease');
 const router = express.Router();
 
@@ -19,6 +21,7 @@ router.post('/subdisease/:dId', (req, res) => {
 	createSubdisease(req, res);
 });
 
+
 //read route
 router.get('/subdisease/:sdId', (req, res) => {
 	getSubdisease(req, res);
@@ -28,6 +31,18 @@ router.get('/subdisease/:sdId', (req, res) => {
 router.put('/subdisease/:sdId', (req, res) => {
 	updateSubdisease(req, res);
 });
+
+
+//bookmark
+router.put('/subdisease/book/:sdId',(req,res) =>
+	{book(req,res)});
+	
+
+
+//unbookmark
+router.put('/subdisease/unbook/:sdId',(req,res) =>
+	{unbook(req,res)});
+	
 
 //delete route
 router.delete('/subdisease/delete/:sdId', (req, res) => {
