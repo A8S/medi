@@ -264,3 +264,28 @@ exports.unlike = (req, res) => {
   });
 };
 
+exports.tags=async(req,res) => {
+  console.log("this is ",req.body.tags);
+   const posts = await Post.find()
+      // countDocuments() gives you total count of posts
+      .countDocuments()
+      .then(count => {
+        
+          return Post.find({tags: { $all :req.body.tags }})
+              .populate("comments", "text created")
+              .populate("comments.postedBy", "_id name")
+              .populate("postedBy", "_id name")
+              .sort({ date: -1 })
+              
+              .select("_id title body likes created tags");
+      })
+      .then(posts => {
+      //  const filtered = posts.filter(post => post.tags)
+        console.log("cc",posts)
+          res.status(200).json(posts);
+      })
+      .catch(err => console.log(err));
+    
+
+
+}
