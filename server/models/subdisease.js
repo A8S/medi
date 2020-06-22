@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 
 const subdiseaseSchema = new mongoose.Schema({
   title: {
@@ -9,15 +10,12 @@ const subdiseaseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tags: {
-    type: String,
-  },
   bestTherapy: {
     type: String,
     required: true,
   },
   disease: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Disease',
   },
   allopathy: {
@@ -52,7 +50,7 @@ const subdiseaseSchema = new mongoose.Schema({
     },
   ],
   updated: Date,
-  // bookmark: [{ type: ObjectId, ref: "User" }]
+  bookmark: [{ type: ObjectId, ref: 'User' }],
 });
 
 module.exports = mongoose.model('Subdisease', subdiseaseSchema);
