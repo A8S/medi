@@ -47,7 +47,9 @@ const subdiseaseSchema = new mongoose.Schema({
 		{
 			url: String
 		}
-	]
+	],
+	updated: Date,
+	bookmark: [{ type: ObjectId, ref: "User" }]
 });
 
 module.exports = mongoose.model('Subdisease', subdiseaseSchema);

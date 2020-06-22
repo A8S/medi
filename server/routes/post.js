@@ -10,7 +10,8 @@ const {
   photo,
   singlePost,
   like,
-  unlike
+  unlike,
+  tags
 } = require("../controllers/post");
 const { requireSignin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -25,6 +26,8 @@ router.get("/posts", getPosts);
 // like unlike
 router.put("/post/like", requireSignin, like);
 router.put("/post/unlike", requireSignin, unlike);
+//tags
+router.post("/post/tags",tags);
 
 router.post(
   // use requireSignin as middleware
