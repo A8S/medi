@@ -312,7 +312,7 @@ class SubdiseaseDetail extends React.Component {
 							</Accordion>
 						</Tab>
 						<Tab eventKey="Posts" title="Posts">
-							<Posts tags={this.state.data.tags} />
+							<Posts tags={this.state.data.title} />
 						</Tab>
 						{/* <Tab eventKey="Symptoms" title="Symptoms">
 							<Pathy id={id} />

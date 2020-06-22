@@ -10,9 +10,7 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tags: {
-    type: String,
-  },
+  tags: [String],
   treatmentTaken: {
     type: String,
     required: true,

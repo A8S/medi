@@ -14,14 +14,15 @@ class Posts extends React.Component {
 		super();
 		this.state = {
 			posts: [],
-			tags: 'cancer',
+			tags: [],
 		};
 	}
 
 	loadPosts = tags => {
 		relatedPost(tags).then(data => {
+			console.log(tags);
 			if (data.error) {
-				console.log(data.error);
+				console.log('here', data.error);
 			} else {
 				this.setState({ posts: data });
 			}
@@ -29,7 +30,7 @@ class Posts extends React.Component {
 	};
 
 	componentDidMount() {
-		this.state.tags = this.props.tags;
+		this.state.tags.push(this.props.tags);
 		this.loadPosts(this.state.tags);
 	}
 

@@ -8,6 +8,8 @@ import { create } from '../../Api/Post';
 import loader from '../../Images/loader2.gif';
 import { serverUrl } from '../variables';
 
+import { Multiselect } from 'multiselect-react-dropdown';
+
 class NewPost extends Component {
 	constructor() {
 		super();
@@ -15,6 +17,8 @@ class NewPost extends Component {
 			title: '',
 			body: '',
 			description: '',
+			plainArray: ['Cancer', 'Corona', 'Lung', 'Diabetes', 'Aids', 'Ebola', 'Stroke', 'Flu'],
+			selectedValues: ['Cancer'],
 			treatmentTaken: '',
 			photo: '',
 			error: '',
@@ -22,7 +26,10 @@ class NewPost extends Component {
 			fileSize: 0,
 			loading: false,
 			redirectToPosts: false,
+			customTag: '',
+			tags: [],
 		};
+		this.multiselectRef = React.createRef();
 	}
 
 	componentDidMount() {
@@ -52,12 +59,43 @@ class NewPost extends Component {
 
 		const fileSize = name === 'photo' ? event.target.files[0].size : 0;
 		this.postData.set(name, value);
+		console.log(this.postData);
 		this.setState({ [name]: value, fileSize });
+		event.preventDefault();
+	};
+
+	getSelectedValues = () => {
+		this.setState({ tags: this.multiselectRef.current.getSelectedItems() });
+		console.log(this.multiselectRef.current.getSelectedItems());
+		this.postData.set('tags', this.multiselectRef.current.getSelectedItems());
+		console.log(this.postData);
+	};
+
+	addTag = event => {
+		if (event.key === 'Enter') {
+			this.setState({
+				selectedValues: [...this.state.selectedValues, this.state.customTag],
+			});
+			this.setState({
+				plainArray: [...this.state.plainArray, this.state.customTag],
+			});
+			this.setState({
+				tags: [...this.state.tags, this.state.customTag],
+			});
+			this.state.customTag = '';
+
+			event.preventDefault();
+		}
 	};
 
 	clickSubmit = event => {
 		event.preventDefault();
 		this.setState({ loading: true });
+
+		var arr = this.state.tags;
+		for (var i = 0; i < arr.length; i++) {
+			this.postData.append('arr[]', arr[i]);
+		}
 
 		if (this.isValid()) {
 			const userId = isAuthenticated().user._id;
@@ -80,7 +118,15 @@ class NewPost extends Component {
 		}
 	};
 
-	newPostForm = (title, body, treatmentTaken, description) => (
+	newPostForm = (
+		title,
+		body,
+		treatmentTaken,
+		description,
+		plainArray,
+		selectedValues,
+		customTag,
+	) => (
 		<form>
 			<div className="form-group">
 				<label className="text-muted">Profile Photo</label>
@@ -107,6 +153,24 @@ class NewPost extends Component {
 					type="text"
 					className="form-control"
 					value={description}
+				/>
+			</div>
+
+			<Multiselect
+				options={plainArray}
+				isObject={false}
+				ref={this.multiselectRef}
+				onSelect={this.getSelectedValues}
+				showCheckbox={true}
+				closeOnSelect={false}
+			/>
+			<div className="form-group">
+				<label className="text-muted">Add Custom Tags</label>
+				<input
+					// onChange={this.handleChange('tags')}
+					type="text"
+					className="form-control"
+					onKeyPress={(this.addTag, this.handleChange('tags'))}
 				/>
 			</div>
 
@@ -145,6 +209,9 @@ class NewPost extends Component {
 			redirectToPosts,
 			treatmentTaken,
 			description,
+			plainArray,
+			selectedValues,
+			customTag,
 		} = this.state;
 
 		if (redirectToPosts) {
@@ -166,7 +233,15 @@ class NewPost extends Component {
 					''
 				)}
 
-				{this.newPostForm(title, body, treatmentTaken, description)}
+				{this.newPostForm(
+					title,
+					body,
+					treatmentTaken,
+					description,
+					plainArray,
+					selectedValues,
+					customTag,
+				)}
 			</div>
 		);
 	}
