@@ -37,10 +37,15 @@ export const list = page => {
 		})
 		.catch(err => console.log(err));
 };
+var myHeaders = new Headers();
+myHeaders.append('Content-Type', 'application/json');
 
+var raw = JSON.stringify({ tags: ['cancer'] });
 export const relatedPost = tags => {
-	return fetch(`${serverUrl}/api/posts/?tags=${tags}`, {
-		method: 'GET',
+	return fetch(`${serverUrl}/api/post/tags`, {
+		method: 'POST',
+		headers: myHeaders,
+		body: JSON.stringify({ tags: tags }),
 	})
 		.then(response => {
 			return response.json();
