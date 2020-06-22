@@ -1,4 +1,4 @@
-import {serverUrl} from '../variables';
+import { serverUrl } from '../variables';
 
 export const create = async (userId, token, post) => {
 	try {
@@ -6,9 +6,9 @@ export const create = async (userId, token, post) => {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
 			},
-			body: post
+			body: post,
 		});
 		return response.json();
 	} catch (err) {
@@ -28,24 +28,34 @@ export const create = async (userId, token, post) => {
 // };
 
 // with pagination
-export const list = (page) => {
+export const list = page => {
 	return fetch(`${serverUrl}/api/posts/?page=${page}`, {
-		method: 'GET'
+		method: 'GET',
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };
 
-export const singlePost = (postId) => {
-	return fetch(`${serverUrl}/api/post/${postId}`, {
-		method: 'GET'
+export const relatedPost = tags => {
+	return fetch(`${serverUrl}/api/posts/?tags=${tags}`, {
+		method: 'GET',
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
+};
+
+export const singlePost = postId => {
+	return fetch(`${serverUrl}/api/post/${postId}`, {
+		method: 'GET',
+	})
+		.then(response => {
+			return response.json();
+		})
+		.catch(err => console.log(err));
 };
 
 export const listByUser = async (userId, token) => {
@@ -55,8 +65,8 @@ export const listByUser = async (userId, token) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`
-			}
+				Authorization: `Bearer ${token}`,
+			},
 		});
 		return response.json();
 	} catch (err) {
@@ -70,13 +80,13 @@ export const remove = (postId, token) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
-		}
+			Authorization: `Bearer ${token}`,
+		},
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };
 
 export const update = (postId, token, post) => {
@@ -85,14 +95,14 @@ export const update = (postId, token, post) => {
 		method: 'PUT',
 		headers: {
 			Accept: 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
 		},
-		body: post
+		body: post,
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };
 
 export const like = (userId, token, postId) => {
@@ -101,14 +111,14 @@ export const like = (userId, token, postId) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
 		},
-		body: JSON.stringify({ userId, postId })
+		body: JSON.stringify({ userId, postId }),
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };
 
 export const unlike = (userId, token, postId) => {
@@ -117,12 +127,12 @@ export const unlike = (userId, token, postId) => {
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`
+			Authorization: `Bearer ${token}`,
 		},
-		body: JSON.stringify({ userId, postId })
+		body: JSON.stringify({ userId, postId }),
 	})
-		.then((response) => {
+		.then(response => {
 			return response.json();
 		})
-		.catch((err) => console.log(err));
+		.catch(err => console.log(err));
 };

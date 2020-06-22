@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.css';
-import Posts from '../Posts/Posts';
+import Posts from '../Posts/RelatedPosts';
 import { getSubdisease, deleteSubdisease } from '../../Api/Subdisease';
 import { clientUrl } from '../../variables';
 
@@ -15,11 +15,9 @@ class SubdiseaseDetail extends React.Component {
 		if (!this.state.data) {
 			console.log(this.props.match.params);
 			getSubdisease(this.props.match.params.sdid).then(data => {
-				console.log(data);
 				this.setState({
 					data: data,
 				});
-				console.log(data);
 			});
 		} else {
 			this.setState({ data: this.props.location.state.data });
@@ -314,7 +312,7 @@ class SubdiseaseDetail extends React.Component {
 							</Accordion>
 						</Tab>
 						<Tab eventKey="Posts" title="Posts">
-							<Posts />
+							<Posts tags={this.state.data.tags} />
 						</Tab>
 						{/* <Tab eventKey="Symptoms" title="Symptoms">
 							<Pathy id={id} />
