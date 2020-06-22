@@ -110,7 +110,9 @@ class Diseases extends React.Component {
 		});
 		return (
 			<div className="container-fluid disease-container">
-				<h3 style={{ paddingTop: '5vh', fontSize: '40px' }}>Categories</h3>
+				<h3 style={{ paddingTop: '1vh', fontSize: '40px', position: 'fixed' }}>
+					Categories
+				</h3>
 				<div
 					className="nav flex-column SideBar"
 					style={{ border: '2px solid rgba(0,0,0,0.25)' }}
@@ -131,7 +133,7 @@ class Diseases extends React.Component {
 						})}
 					</ul>
 				</div>
-				<div className="main-div">
+				<div className="main-div" style={{}}>
 					<div className="search">
 						<Autocomplete
 							filteredData={this.filteredData}

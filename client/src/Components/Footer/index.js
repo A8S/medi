@@ -9,91 +9,60 @@ class Footer extends Component {
 	state = {
 		name: '',
 		email: '',
-		query: ''
+		query: '',
 	};
 
-	onFormSubmit = (event) => {
+	onFormSubmit = event => {
 		event.preventDefault();
-		submitQuery(this.state).then((data) => {
+		submitQuery(this.state).then(data => {
 			if (data.status === 200) {
 				this.setState({
 					name: '',
 					email: '',
-					query: ''
+					query: '',
 				});
 			}
 		});
 	};
 
-	onChange = (event) => {
+	onChange = event => {
 		const key = event.target.name;
 		const value = event.target.value;
 
 		this.setState({
-			[key]: value
+			[key]: value,
 		});
 	};
-
-	queryForm = () => (
-		<form onSubmit={this.onFormSubmit}>
-			<div className="form-group">
-				<label className="font-weight-bold">Name</label>
-				<input
-					onChange={this.onChange}
-					name="name"
-					value={this.state.name}
-					placeholder="Name"
-					className="form-control"
-				/>
-			</div>
-
-			<div className="form-group">
-				<label className="font-weight-bold">Email</label>
-				<input
-					onChange={this.onChange}
-					type="email"
-					className="form-control"
-					name="email"
-					value={this.state.email}
-					placeholder="Email"
-				/>
-			</div>
-
-			<div className="form-group">
-				<label className="font-weight-bold">Query</label>
-				<textarea
-					onChange={this.onChange}
-					className="form-control"
-					name="query"
-					value={this.state.query}
-					placeholder="Write Your Query"
-				/>
-			</div>
-
-			<button type="submit" className="btn btn-danger mb-3 float-right">
-				Submit
-			</button>
-		</form>
-	);
 
 	render() {
 		return (
 			<div>
 				{
-					<footer className="bg-dark text-white mt-4">
+					<footer
+						className="bg-dark text-white mt-4"
+						style={{ position: 'relative', zIndex: '10', height: '30vh' }}
+					>
 						<div className="container text-center text-md-left">
 							<div className="row">
 								<hr className="clearfix w-100 d-md-none" />
 								<div className="col-md-3">
 									<ul className="list-unstyled">
 										<li>
-											<img src={logo} className="img-responsive img-css" alt="logo" />
+											<img
+												src={logo}
+												className="img-responsive img-css"
+												alt="logo"
+											/>
 										</li>
 									</ul>
 									<div className="col-md-12 col-sm-12 icon">
 										<ul className="social-network social-circle ">
 											<li>
-												<a href="/" className="icoFacebook" title="Facebook">
+												<a
+													href="/"
+													className="icoFacebook"
+													title="Facebook"
+												>
 													<i className="fa fa-facebook" />
 												</a>
 											</li>
@@ -108,7 +77,11 @@ class Footer extends Component {
 												</a>
 											</li>
 											<li>
-												<a href="/" className="icoLinkedin" title="Linkedin">
+												<a
+													href="/"
+													className="icoLinkedin"
+													title="Linkedin"
+												>
 													<i className="fa fa-linkedin" />
 												</a>
 											</li>
@@ -188,17 +161,19 @@ class Footer extends Component {
 									<h5 className=" mt-3 mb-4 heading">
 										Register to our <br /> Newsletter
 									</h5>
-									{this.queryForm()}
 								</div>
 							</div>
 						</div>
 
-						<div className="footer-copyright text-center py-3 heading container">
+						<div
+							className="footer-copyright text-center py-3 heading container"
+							style={{ position: 'absolute', bottom: '0', left: '15%' }}
+						>
 							<p>© 2018 Copyright</p>
 							<p>
 								{' '}
-								All rights reserved! Information on the website is reported by our members and is not a
-								medical advice.
+								All rights reserved! Information on the website is reported by our
+								members and is not a medical advice.
 							</p>
 						</div>
 					</footer>

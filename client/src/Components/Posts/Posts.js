@@ -3,8 +3,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { list } from '../../Api/Post';
-import { serverUrl } from '../variables';
 // import DefaultPost from '../../Images/mountains.jpg';
+
+import { Table, Pagination } from 'react-bootstrap';
+
+import './style.css';
 
 class Posts extends React.Component {
 	constructor() {
@@ -12,12 +15,13 @@ class Posts extends React.Component {
 		this.state = {
 			posts: [],
 			page: 1,
-			noMorePosts: false
+			noMorePosts: false,
 		};
+		let items = [];
 	}
 
-	loadPosts = (page) => {
-		list(page).then((data) => {
+	loadPosts = page => {
+		list(page).then(data => {
 			if (data.error) {
 				console.log(data.error);
 			} else {
@@ -30,30 +34,63 @@ class Posts extends React.Component {
 		this.loadPosts(this.state.page);
 	}
 
-	loadMore = (number) => {
+	loadMore = number => {
 		this.setState({ page: this.state.page + number });
 		this.loadPosts(this.state.page + number);
 	};
 
-	loadLess = (number) => {
+	loadLess = number => {
 		this.setState({ page: this.state.page - number });
 		this.loadPosts(this.state.page - number);
 	};
 
-	renderPosts = (posts) => {
+	fun = number => {
+		if (this.state.page > number) {
+			this.loadLess(this.state.page - number);
+		} else if (this.state.page < number) {
+			this.loadMore(number - this.state.page);
+		}
+	};
+
+	renderPosts = posts => {
+		let items = [];
+
+		for (let number = 1; number <= posts.length; number++) {
+			items.push(
+				<Pagination.Item
+					key={number}
+					active={number === this.state.page}
+					onClick={e => this.fun(number)}
+				>
+					{number}
+				</Pagination.Item>,
+			);
+		}
+
 		return (
 			<div className="row">
-				{posts.map((post, i) => {
-					console.log(post);
-					// map only works with arrays
+				<Table striped bordered hover>
+					<thead>
+						<tr>
+							<th>Heading</th>
+							<th>Date Posted</th>
+							<th>Posted by</th>
+							<th>Disease</th>
+							<th>Likes</th>
+							<th>Description</th>
+							<th>Read more</th>
+						</tr>
+					</thead>
+					<tbody>
+						{posts.map((post, i) => {
+							console.log(post);
+							// map only works with arrays
 
-					const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
-					const posterName = post.postedBy ? post.postedBy.name : ' Unknown';
+							const posterId = post.postedBy ? `/user/${post.postedBy._id}` : '';
+							const posterName = post.postedBy ? post.postedBy.name : ' Unknown';
 
-					return (
-						<table className="table table-striped table-bordered">
-							<tr>
-								<div className="card-body col-8">
+							return (
+								<tr>
 									{/* <img
 									src={`${process.env.REACT_APP_API_URL}/api/post/photo/${
 										post._id
@@ -70,18 +107,18 @@ class Posts extends React.Component {
 									on {new Date(post.created).toDateString()}
 								</p> */}
 									<td className="col-xs-8">
-										<span className="fa fa-clock-o" /> Posted by{' '}
-										<Link to={`${posterId}`}>{posterName} </Link>
-										on {new Date(post.created).toDateString()}
+										{new Date(post.created).toDateString()}
 									</td>
 									{/* <p>
 									<span className="badge badge-secondary">Food</span>{' '}
 									<span className="badge badge-secondary">Ipsum</span>
 								</p> */}
-
+									<td className="col-xs-8">
+										<Link to={`${posterId}`}>{posterName} </Link>
+									</td>
 									{/* <p className="card-text">{post.body.substring(0, 100)}</p> */}
 									<td className="card-text" style={{ wordBreak: 'break-word' }}>
-										{post.body}
+										Cancer
 									</td>
 									{/* only some charaters are visible in the posts */}
 
@@ -89,17 +126,22 @@ class Posts extends React.Component {
 									Posted by <Link to={`${posterId}`}>{posterName} </Link>
 									on {new Date(post.created).toDateString()}
 								</p> */}
+									<td className="col-xs-8">{14}</td>
+									<td className="card-text" style={{ wordBreak: 'break-word' }}>
+										{post.body}
+									</td>
 
 									<td>
-										<Link to={`/post/${post._id}`} className="btn btn-raised btn-primary btn-sm">
-											Read more
-										</Link>
+										<Link to={`/post/${post._id}`}>Read more</Link>
 									</td>
-								</div>
-							</tr>
-						</table>
-					);
-				})}
+								</tr>
+							);
+						})}
+					</tbody>
+				</Table>
+				<div className="center">
+					<Pagination>{items}</Pagination>
+				</div>
 			</div>
 		);
 	};
@@ -109,34 +151,15 @@ class Posts extends React.Component {
 		return (
 			<div>
 				{' '}
+				{this.renderPosts(posts)}
+				<div className="left-right">
+					<Pagination>
+						{page > 1 ? <Pagination.Prev onClick={() => this.loadLess(1)} /> : ''}
+						{posts.length ? <Pagination.Next onClick={() => this.loadMore(1)} /> : ''}
+					</Pagination>
+				</div>
 				<h2 className="mt-5 mb-5">{!posts.length ? 'No more posts!' : ''}</h2>
 				{/* <h2 className="mt-5 mb-5">{!posts.length ? 'Loading...' : 'Recent Posts'}</h2> */}
-				{this.renderPosts(posts)}
-				{page > 1 ? (
-					<button
-						className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
-						onClick={() => this.loadLess(1)}
-						type="button"
-					>
-						{' '}
-						Previous
-						{/* Previous ({this.state.page - 1}) */}
-					</button>
-				) : (
-					''
-				)}
-				{posts.length ? (
-					<button
-						className="btn btn-raised btn-success mt-5 mb-5"
-						onClick={() => this.loadMore(1)}
-						type="button"
-					>
-						Next
-						{/* Next ({page + 1}) */}
-					</button>
-				) : (
-					''
-				)}
 			</div>
 		);
 	}
