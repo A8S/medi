@@ -18,7 +18,7 @@ class NewPost extends Component {
 			body: '',
 			description: '',
 			plainArray: ['Cancer', 'Corona', 'Lung', 'Diabetes', 'Aids', 'Ebola', 'Stroke', 'Flu'],
-			selectedValues: ['Cancer'],
+			selectedValues: [],
 			treatmentTaken: '',
 			photo: '',
 			error: '',
@@ -66,9 +66,6 @@ class NewPost extends Component {
 
 	getSelectedValues = () => {
 		this.setState({ tags: this.multiselectRef.current.getSelectedItems() });
-		console.log(this.multiselectRef.current.getSelectedItems());
-		this.postData.set('tags', this.multiselectRef.current.getSelectedItems());
-		console.log(this.postData);
 	};
 
 	addTag = event => {
@@ -79,9 +76,7 @@ class NewPost extends Component {
 			this.setState({
 				plainArray: [...this.state.plainArray, this.state.customTag],
 			});
-			this.setState({
-				tags: [...this.state.tags, this.state.customTag],
-			});
+
 			this.state.customTag = '';
 
 			event.preventDefault();
@@ -91,11 +86,9 @@ class NewPost extends Component {
 	clickSubmit = event => {
 		event.preventDefault();
 		this.setState({ loading: true });
+		console.log(this.state.tags);
 
-		var arr = this.state.tags;
-		for (var i = 0; i < arr.length; i++) {
-			this.postData.append('arr[]', arr[i]);
-		}
+		this.postData.set('tags', [...this.state.tags, ...this.state.selectedValues]);
 
 		if (this.isValid()) {
 			const userId = isAuthenticated().user._id;
@@ -167,10 +160,11 @@ class NewPost extends Component {
 			<div className="form-group">
 				<label className="text-muted">Add Custom Tags</label>
 				<input
-					// onChange={this.handleChange('tags')}
+					onChange={this.handleChange('customTag')}
 					type="text"
 					className="form-control"
-					onKeyPress={(this.addTag, this.handleChange('tags'))}
+					onKeyPress={this.addTag}
+					value={customTag}
 				/>
 			</div>
 

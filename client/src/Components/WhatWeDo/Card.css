@@ -1,19 +1,27 @@
 .card-shadow {
-   border: 5;
+	border: 2px solid black;
 }
 
-._card{
-	height:135px;
+._card {
+	height: 135px;
 }
 
 .card-img-top {
-    width: 40% !important;
-    height:90px !important;
-    margin: 20px 90px 20px 90px !important
-
+	width: 60% !important;
+	height: 150px !important;
+	margin: 20px 70px 20px 70px !important;
 }
 
-.des{
-    size: 20px;
+.des {
+	size: 20px;
 }
 /*color: #24a06a*/
+
+.lead {
+	font-size: 24px;
+	padding: 2em;
+}
+
+.divider {
+	border-right: 3px solid rgba(0, 0, 0, 0.25);
+}

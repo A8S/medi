@@ -44,7 +44,7 @@ class SubdiseaseDetail extends React.Component {
 			return <div>Loading...</div>;
 		}
 		return (
-			<Container fluid>
+			<Container>
 				<div className="row">
 					<h1 className="my-5 col-md-8">{this.state.data.title}</h1>
 					<div className=" my-5 col-md-4">

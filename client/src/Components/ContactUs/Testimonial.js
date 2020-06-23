@@ -61,13 +61,20 @@ class CarouselSlide extends Component {
 						? 'carousel__slide carousel__slide--active'
 						: 'carousel__slide'
 				}
+				style={{ height: '30vh' }}
 			>
-				<p className="carousel-slide__content">{this.props.slide.content}</p>
-				<p>
-					<strong className="carousel-slide__author">{this.props.slide.author}</strong>
+				<p className="carousel-slide__content" style={{ fontSize: '20px' }}>
+					{this.props.slide.content}
 				</p>
 				<p>
-					<small className="carousel-slide__source">{this.props.slide.source}</small>
+					<strong className="carousel-slide__author" style={{ fontSize: '20px' }}>
+						{this.props.slide.author}
+					</strong>
+				</p>
+				<p>
+					<small className="carousel-slide__source" style={{ fontSize: '20px' }}>
+						{this.props.slide.source}
+					</small>
 				</p>
 			</li>
 		);
