@@ -17,7 +17,7 @@ class NewPost extends Component {
 			title: '',
 			body: '',
 			description: '',
-			plainArray: ['Cancer', 'Corona', 'Lung', 'Diabetes', 'Aids', 'Ebola', 'Stroke', 'Flu'],
+			plainArray: ['cancer', 'corona', 'lung', 'diabetes', 'aids', 'ebola', 'stroke', 'flu'],
 			selectedValues: [],
 			treatmentTaken: '',
 			photo: '',
@@ -70,11 +70,13 @@ class NewPost extends Component {
 
 	addTag = event => {
 		if (event.key === 'Enter') {
+			let lowercase = this.state.customTag.toLowerCase();
 			this.setState({
-				selectedValues: [...this.state.selectedValues, this.state.customTag],
+				selectedValues: [...this.state.selectedValues, lowercase],
 			});
+
 			this.setState({
-				plainArray: [...this.state.plainArray, this.state.customTag],
+				plainArray: [...this.state.plainArray, lowercase],
 			});
 
 			this.state.customTag = '';
