@@ -77,15 +77,15 @@ class Signup extends Component {
 										<input
 											onChange={this.handleChange('name')}
 											type="text"
-											className=""
+											className="signinput"
 											value={name}
 											required
 										/>
 										{(() => {
 											if(this.state.name === ''){
-												return <label>Name</label>;
+												return <label className="signlabel">Name</label>;
 											}
-											return <label></label>
+											return <label className="signlabel"></label>
 										})()}
 									</div>
 
@@ -104,15 +104,15 @@ class Signup extends Component {
 										<input
 											onChange={this.handleChange('email')}
 											type="email"
-											className=""
+											className="signinput"
 											value={email}
 											required
 										/>
 										{(() => {
 											if(this.state.email === ''){
-												return <label>Email address</label>;
+												return <label className="signlabel">Email address</label>;
 											}
-											return <label></label>
+											return <label className="signlabel"></label>
 										})()}
 									</div>
 
@@ -120,15 +120,15 @@ class Signup extends Component {
 										<input
 											onChange={this.handleChange('password')}
 											type="password"
-											className=""
+											className="signinput"
 											value={password}
 											required
 										/>
 										{(() => {
 											if(this.state.password === ''){
-												return <label>Password</label>;
+												return <label className="signlabel">Password</label>;
 											}
-											return <label></label>
+											return <label className="signlabel"></label>
 										})()}
 									</div>
 									<button
