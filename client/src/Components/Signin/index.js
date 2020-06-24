@@ -82,22 +82,33 @@ class Signin extends Component {
 										<input
 											onChange={this.handleChange('email')}
 											type="email"
-											className="form-control"
+											className=""
 											value={email}
 											required
 										/>
-										<label>Email address</label>
+										{(() => {
+											if(this.state.email === ''){
+												return <label>Email address</label>;
+											}
+											return <label></label>
+										})()}
+										{/* <label>Email address</label> */}
 									</div>
 
 									<div className="form-label-group">
 										<input
 											onChange={this.handleChange('password')}
 											type="password"
-											className="form-control"
+											className=""
 											value={password}
 											required
 										/>
-										<label>Password</label>
+										{(() => {
+											if(this.state.password === ''){
+												return <label>Password</label>;
+											}
+											return <label></label>
+										})()}
 									</div>
 									<p className="text-right">
 										<small>
@@ -105,15 +116,38 @@ class Signin extends Component {
 										</small>
 									</p>
 									<button
-										className="btn btn-lg btn-primary btn-block text-uppercase signBtn"
+										className="btn btn-lg btn-primary text-uppercase signBtn"
 										type="submit"
 										onClick={this.clickSubmit}
 									>
 										Sign in
 									</button>
+									<p className="text-center">
+										<br/>or <br/> <br/> continue with {'  '}
+										{/* <a href='/' className="border-around"><i className="fa fa-google" /> </a> {'  '}
+										<a href='/' className="border-around"><i className="fa fa-facebook" /> </a> {'  '}
+										<a href='/' className="border-around"><i className="fa fa-twitter" /> </a> */}
+										<ul className="social-network social-circle ">
+											<li>
+												<a href="/" className="icoFacebook" title="Facebook">
+													<i className="fa fa-facebook" />
+												</a>
+											</li>
+											<li>
+												<a href="/" className="icoTwitter" title="Twitter">
+													<i className="fa fa-twitter" />
+												</a>
+											</li>
+											<li>
+												<a href="/" className="icoGoogle" title="Google +">
+													<i className="fa fa-google-plus" />
+												</a>
+											</li>
+										</ul>
+									</p>
 									<hr className="my-4" />
 									<p className="text-center">
-										Don't have a account?<a href="/signup"> SignUp</a>
+										Don't have an account?<a href="/signup"> SignUp</a>
 									</p>
 								</form>
 							</div>
@@ -125,3 +159,6 @@ class Signin extends Component {
 	}
 }
 export default Signin;
+
+
+
