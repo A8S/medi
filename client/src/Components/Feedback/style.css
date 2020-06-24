@@ -4,3 +4,7 @@
 .head{
     margin-top: 112px;
 }
+.scroll-y{
+    height: 400px;
+    overflow-y: auto;
+}
