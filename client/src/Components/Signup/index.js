@@ -77,11 +77,16 @@ class Signup extends Component {
 										<input
 											onChange={this.handleChange('name')}
 											type="text"
-											className="form-control"
+											className=""
 											value={name}
 											required
 										/>
-										<label> Name</label>
+										{(() => {
+											if(this.state.name === ''){
+												return <label>Name</label>;
+											}
+											return <label></label>
+										})()}
 									</div>
 
 									{/* <div className="form-label-group">
@@ -99,25 +104,35 @@ class Signup extends Component {
 										<input
 											onChange={this.handleChange('email')}
 											type="email"
-											className="form-control"
+											className=""
 											value={email}
 											required
 										/>
-										<label>Email address</label>
+										{(() => {
+											if(this.state.email === ''){
+												return <label>Email address</label>;
+											}
+											return <label></label>
+										})()}
 									</div>
 
 									<div className="form-label-group">
 										<input
 											onChange={this.handleChange('password')}
 											type="password"
-											className="form-control"
+											className=""
 											value={password}
 											required
 										/>
-										<label>Password</label>
+										{(() => {
+											if(this.state.password === ''){
+												return <label>Password</label>;
+											}
+											return <label></label>
+										})()}
 									</div>
 									<button
-										className="btn btn-lg btn-primary btn-block text-uppercase signBtn"
+										className="btn btn-lg btn-primary text-uppercase signBtn"
 										type="submit"
 										onClick={this.clickSubmit}
 									>
@@ -125,7 +140,7 @@ class Signup extends Component {
 									</button>
 									<hr className="my-4" />
 									<p className="text-center">
-										Already have an account?
+										Already have an account? {'  '}
 										<a href="/signin">
 											Sign In
 										</a>
