@@ -55,6 +55,24 @@ class Feedback extends Component {
 	};
 
 	render() {
+
+		
+
+		const ratingStars = (rating) => {
+			let stars = [];
+			for(let i=1; i<=rating; i++){
+				stars.push(
+					<i className="fa fa-star" />
+				)
+			}
+			for(let i=1; i<=5-rating; i++){
+				stars.push(
+					<i className="fa fa-star-o" />
+				)
+			}
+			return stars;
+		}
+
 		return (
 			<div className="container">
 				<h1 className="head">Feedback</h1>
@@ -63,7 +81,8 @@ class Feedback extends Component {
 				</h3>
 				<form onClick={this.handleSubmit}>
 					<div class="form-group">
-						<label className="text-muted">Name</label>
+					<label className="text-muted">Name</label> {'   '}
+					<span><i>(Post it</i> <a style={{color: "blue", cursor: "pointer"}} onClick={(e) => this.setState({name: "Anonymous"})}><i>Anonymously</i></a>)</span> 
 						<input
 							type="text"
 							value={this.state.name}
@@ -102,33 +121,39 @@ class Feedback extends Component {
 							required
 						/>
 					</div>
-					<button type="button" class="btn btn-success">
+					<button type="button" class="btn btn-success mb-3">
 						Submit
 					</button>
 				</form>
+				<br/> <br/>
+				<div className="scroll-y mb-3">
 				{this.state.feedback.map((feedback, index) => {
 					return (
-						<div className="card">
-							<div className="title">
-								<h4>{feedback.title}</h4>
-							</div>
-							<p className="header">
-								<b>Description :</b>
-							</p>
-							<div className="description">
-								<p>{feedback.description}</p>
-							</div>
-							<div>
-								<span>
-									<b>Name</b> : {feedback.name}{' '}
-								</span>
-								<span>
-									<b>Rating</b> : {feedback.rating}/5
-								</span>
+						<div className="card mb-3 mr-3">
+							<div className="card-body">
+								<div className="card-title">
+									<h4>{feedback.title}</h4>
+								</div>
+								{/* <p className="header"> */}
+									<b>Description :</b>
+								{/* </p> */}
+								{/* <div className="description"> */}
+									<p>{feedback.description}</p>
+								{/* </div> */}
+								{/* <div> */}
+									<span>
+										<i>- {feedback.name}{'  '}</i>
+									</span>
+									<span>
+										{ratingStars(feedback.rating)}
+									</span>
+								{/* </div> */}
 							</div>
 						</div>
 					);
 				})}
+				</div>
+				<br/> <br/>
 			</div>
 		);
 	}
