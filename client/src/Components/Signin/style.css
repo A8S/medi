@@ -109,11 +109,11 @@
   border-bottom: 2px;
  } */
 
- input{
+ .signinput{
    width: 100%!important;
  }
 
- input{
+ .signinput{
   position: relative!important;
   z-index: 1!important;
   height: 35px!important;
@@ -123,7 +123,7 @@
   background-color:transparent!important;
 }
 
-input + label{
+.signinput + .signlabel{
     position:absolute!important;
     top:5px!important;
     left:5px!important;
@@ -132,13 +132,13 @@ input + label{
     transition: all .5s ease-out!important;
 }
 
-input:focus{
+.signinput:focus{
     outline: none!important;
     border-bottom:2px solid red!important;
     transition: all .5s ease-out!important; 
 }
 
-input:focus + label{
+.signinput:focus + .signlabel{
     top:-10px!important;
     color:red!important;
     font-size:12px!important; 
