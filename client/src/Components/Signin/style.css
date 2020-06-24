@@ -95,7 +95,65 @@
   }
   
   .signBtn {
+    display: block;
     background: #0062cc;
+    border-radius: 3px !important;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  /* .border-bottom{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px;
+ } */
+
+ input{
+   width: 100%!important;
+ }
+
+ input{
+  position: relative!important;
+  z-index: 1!important;
+  height: 35px!important;
+  font-size:16px!important;
+  border:none!important;
+  border-bottom: 1px solid #cdcccd!important;
+  background-color:transparent!important;
+}
+
+input + label{
+    position:absolute!important;
+    top:5px!important;
+    left:5px!important;
+    font-size:16px!important;
+    color: #cdcccd!important;
+    transition: all .5s ease-out!important;
+}
+
+input:focus{
+    outline: none!important;
+    border-bottom:2px solid red!important;
+    transition: all .5s ease-out!important; 
+}
+
+input:focus + label{
+    top:-10px!important;
+    color:red!important;
+    font-size:12px!important; 
+}
+
+
+
+/*
+ .border-around{
+   border: 1px dotted black;
+   margin-left: 10px;
+   padding-left: 5px;
+   padding-right: 4px;
+   padding-bottom: 2px;
+   border-radius: 20px;
+ } */
 
  
