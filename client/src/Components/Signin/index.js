@@ -82,15 +82,15 @@ class Signin extends Component {
 										<input
 											onChange={this.handleChange('email')}
 											type="email"
-											className=""
+											className="signinput"
 											value={email}
 											required
 										/>
 										{(() => {
 											if(this.state.email === ''){
-												return <label>Email address</label>;
+												return <label className="signlabel">Email address</label>;
 											}
-											return <label></label>
+											return <label className="signlabel"></label>
 										})()}
 										{/* <label>Email address</label> */}
 									</div>
@@ -99,15 +99,15 @@ class Signin extends Component {
 										<input
 											onChange={this.handleChange('password')}
 											type="password"
-											className=""
+											className="signinput"
 											value={password}
 											required
 										/>
 										{(() => {
 											if(this.state.password === ''){
-												return <label>Password</label>;
+												return <label className="signlabel">Password</label>;
 											}
-											return <label></label>
+											return <label className="signlabel"></label>
 										})()}
 									</div>
 									<p className="text-right">
